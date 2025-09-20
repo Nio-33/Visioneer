@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Pricing - Visioneer{% endblock %}
+
+{% block content %}
+<!-- Pricing Hero Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="display-4 fw-bold mb-3">Simple, Transparent Pricing</h1>
+                <p class="lead text-muted">
+                    Choose the perfect plan for your creative workflow
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Cards -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <!-- Free Tier -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <h3 class="h4 fw-bold mb-3">Free</h3>
+                        <div class="mb-4">
+                            <span class="display-4 fw-bold text-primary">$0</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                3 moodboards per month
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Standard resolution exports
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Basic style options
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Community support
+                            </li>
+                        </ul>
+                        {% if session.user %}
+                            <a href="{{ url_for('main.create_moodboard') }}" class="btn btn-outline-primary w-100">
+                                Get Started
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary w-100">
+                                Sign Up Free
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pro Tier -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-primary shadow-lg h-100 position-relative">
+                    <div class="card-body p-4 text-center">
+                        <div class="badge bg-primary position-absolute top-0 start-50 translate-middle px-3 py-2">
+                            Most Popular
+                        </div>
+                        <h3 class="h4 fw-bold mb-3">Pro</h3>
+                        <div class="mb-4">
+                            <span class="display-4 fw-bold text-primary">$19</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Unlimited moodboards
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                HD exports & downloads
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                All style options
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Collaboration tools
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Priority support
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-primary w-100" onclick="alert('Pro subscription coming soon!')">
+                            Upgrade to Pro
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Tier -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <h3 class="h4 fw-bold mb-3">Team</h3>
+                        <div class="mb-4">
+                            <span class="display-4 fw-bold text-primary">$49</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Everything in Pro
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Multi-user accounts
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Advanced collaboration
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Custom branding
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Dedicated support
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary w-100" onclick="alert('Team subscription coming soon!')">
+                            Contact Sales
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+                
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Can I change my plan anytime?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                What happens to my moodboards if I cancel?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Your moodboards are saved for 30 days after cancellation. You can download them during this period.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Do you offer student discounts?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes! Students with valid .edu email addresses get 50% off Pro plans. Contact support for details.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

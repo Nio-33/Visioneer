@@ -1,0 +1,31 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Users can upload and manage their own files
+    match /users/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Moodboard images - users can upload and read their own
+    match /moodboards/{userId}/{moodboardId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Reference images - users can upload their own
+    match /references/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Generated images - users can read their own generated content
+    match /generated/{userId}/{moodboardId}/{allPaths=**} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      // Write access only for system/cloud functions
+      allow write: if false;
+    }
+    
+    // Deny all other access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

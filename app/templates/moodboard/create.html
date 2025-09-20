@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}Create Moodboard - Visioneer{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h3 fw-bold mb-0">Create New Moodboard</h2>
+                    <p class="mb-0 opacity-75">Transform your story into stunning visual concepts</p>
+                </div>
+                <div class="card-body p-4">
+                    <form id="moodboard-form" method="POST">
+                        <!-- Story Input -->
+                        <div class="mb-4">
+                            <label for="story" class="form-label fw-semibold">
+                                Story Description <span class="text-danger">*</span>
+                            </label>
+                            <textarea 
+                                class="form-control" 
+                                id="story" 
+                                name="story" 
+                                rows="6" 
+                                placeholder="Describe your story, script excerpt, or concept idea. Be as detailed as possible about the setting, mood, characters, and visual elements..."
+                                required
+                                minlength="50"
+                                maxlength="2000"
+                            ></textarea>
+                            <div class="form-text">
+                                <span id="char-count">0</span>/2000 characters (minimum 50 required)
+                            </div>
+                        </div>
+
+                        <!-- Style Selection -->
+                        <div class="mb-4">
+                            <label for="style" class="form-label fw-semibold">Visual Style</label>
+                            <select class="form-select" id="style" name="style" required>
+                                <option value="cinematic">🎬 Cinematic - Film-like, dramatic lighting</option>
+                                <option value="artistic">🎨 Artistic - Creative, expressive interpretation</option>
+                                <option value="realistic">📸 Realistic - Photographic, documentary style</option>
+                                <option value="dark_moody">🌙 Dark & Moody - Noir, dramatic shadows</option>
+                                <option value="vintage">📺 Vintage - Retro, nostalgic aesthetic</option>
+                                <option value="modern">⚡ Modern - Contemporary, clean design</option>
+                            </select>
+                        </div>
+
+                        <!-- Image Count -->
+                        <div class="mb-4">
+                            <label for="image_count" class="form-label fw-semibold">Number of Images</label>
+                            <select class="form-select" id="image_count" name="image_count" required>
+                                <option value="4">4 Images - Quick overview</option>
+                                <option value="6" selected>6 Images - Standard moodboard</option>
+                                <option value="8">8 Images - Detailed presentation</option>
+                                <option value="10">10 Images - Comprehensive view</option>
+                                <option value="12">12 Images - Full exploration</option>
+                            </select>
+                        </div>
+
+                        <!-- Aspect Ratio -->
+                        <div class="mb-4">
+                            <label for="aspect_ratio" class="form-label fw-semibold">Aspect Ratio</label>
+                            <select class="form-select" id="aspect_ratio" name="aspect_ratio" required>
+                                <option value="16:9" selected>16:9 - Widescreen (Cinematic)</option>
+                                <option value="2.35:1">2.35:1 - Anamorphic (Ultra-wide)</option>
+                                <option value="4:3">4:3 - Classic (Traditional)</option>
+                                <option value="1:1">1:1 - Square (Social media)</option>
+                            </select>
+                        </div>
+
+                        <!-- Reference Image Upload (Optional) -->
+                        <div class="mb-4">
+                            <label for="reference_image" class="form-label fw-semibold">Reference Image (Optional)</label>
+                            <input type="file" class="form-control" id="reference_image" name="reference_image" accept="image/*">
+                            <div class="form-text">Upload a reference image to guide the AI generation</div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" id="generate-btn">
+                                <i class="fas fa-magic me-2"></i>Generate Moodboard
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Generation Progress -->
+            <div id="generation-progress" class="card border-0 shadow-lg mt-4" style="display: none;">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3">Generating Your Moodboard...</h4>
+                    <div class="progress mb-3" style="height: 8px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <div id="progress-text" class="text-muted">Analyzing your story...</div>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div id="generation-results" class="mt-4" style="display: none;">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('moodboard-form');
+    const charCount = document.getElementById('char-count');
+    const storyTextarea = document.getElementById('story');
+    const generateBtn = document.getElementById('generate-btn');
+    const progressCard = document.getElementById('generation-progress');
+    const progressBar = progressCard.querySelector('.progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const resultsDiv = document.getElementById('generation-results');
+
+    // Character counter
+    storyTextarea.addEventListener('input', function() {
+        const count = this.value.length;
+        charCount.textContent = count;
+        
+        if (count < 50) {
+            charCount.classList.add('text-danger');
+            charCount.classList.remove('text-success');
+        } else {
+            charCount.classList.remove('text-danger');
+            charCount.classList.add('text-success');
+        }
+    });
+
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        if (storyTextarea.value.length < 50) {
+            alert('Please enter at least 50 characters for your story description.');
+            return;
+        }
+
+        // Show progress
+        progressCard.style.display = 'block';
+        generateBtn.disabled = true;
+        generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating...';
+
+        try {
+            // Simulate progress updates
+            updateProgress(0, 'Analyzing your story...');
+            
+            const formData = new FormData(form);
+            
+            // Send request to generate moodboard
+            const response = await fetch('/generate', {
+                method: 'POST',
+                body: formData
+            });
+
+            updateProgress(50, 'Generating visual concepts...');
+
+            const result = await response.json();
+
+            if (result.success) {
+                updateProgress(100, 'Moodboard generated successfully!');
+                
+                // Show results
+                showResults(result);
+                
+                // Redirect to view page after a delay
+                setTimeout(() => {
+                    window.location.href = `/moodboard/${result.moodboard_id}`;
+                }, 2000);
+            } else {
+                throw new Error(result.error || 'Generation failed');
+            }
+
+        } catch (error) {
+            console.error('Generation error:', error);
+            alert('Error generating moodboard: ' + error.message);
+            
+            // Reset form
+            generateBtn.disabled = false;
+            generateBtn.innerHTML = '<i class="fas fa-magic me-2"></i>Generate Moodboard';
+            progressCard.style.display = 'none';
+        }
+    });
+
+    function updateProgress(percentage, text) {
+        progressBar.style.width = percentage + '%';
+        progressText.textContent = text;
+    }
+
+    function showResults(result) {
+        resultsDiv.innerHTML = `
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold text-success mb-3">
+                        <i class="fas fa-check-circle me-2"></i>Moodboard Generated Successfully!
+                    </h4>
+                    <p class="text-muted mb-3">Your story has been analyzed and image prompts have been generated.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold">Analysis Summary:</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Setting:</strong> ${result.analysis.setting?.join(', ') || 'N/A'}</li>
+                                <li><strong>Mood:</strong> ${result.analysis.mood?.join(', ') || 'N/A'}</li>
+                                <li><strong>Style:</strong> ${result.analysis.genre || 'N/A'}</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold">Generated ${result.image_prompts.length} Image Prompts</h6>
+                            <p class="text-muted small">Ready for AI image generation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <a href="/moodboard/${result.moodboard_id}" class="btn btn-primary">
+                            View Your Moodboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        resultsDiv.style.display = 'block';
+    }
+});
+</script>
+{% endblock %}
