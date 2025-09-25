@@ -222,7 +222,7 @@ def new_project():
 @bp.route('/templates')
 def templates():
     """Templates page"""
-    return render_template('templates.html')
+    return render_template('dashboard/templates.html')
 
 @bp.route('/settings')
 def settings():

@@ -67,6 +67,10 @@
         <span class="material-symbols-outlined">auto_awesome_mosaic</span>
         <span class="font-medium">Templates</span>
         </a>
+        <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.conversational_editor') }}">
+        <span class="material-symbols-outlined">chat</span>
+        <span class="font-medium">AI Editor</span>
+        </a>
         <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.settings') }}">
         <span class="material-symbols-outlined">settings</span>
         <span class="font-medium">Settings</span>
@@ -101,8 +105,8 @@
 <button type="button" id="auto-generate-btn" class="flex items-center gap-1 px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">
 <span class="material-symbols-outlined text-sm">auto_fix_high</span>
 Auto Generate
-</button>
-</div>
+        </button>
+    </div>
 </div>
 <textarea class="form-input" id="story-description" maxlength="2000" name="story-description" placeholder="Describe the key scenes, characters, and overall atmosphere..." rows="6"></textarea>
 </div>
@@ -157,9 +161,9 @@ Auto Generate
                         <option>Classic</option>
                         <option>Avant-garde</option>
                         <option>Understated</option>
-                    </select>
-                </div>
-</div>
+                                </select>
+                            </div>
+                        </div>
 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                     <label class="mb-2 block text-sm font-medium" for="genre">Genre</label>
@@ -193,8 +197,8 @@ Auto Generate
                         <option>Steampunk</option>
                         <option>Dystopian</option>
                         <option>Utopian</option>
-                    </select>
-                </div>
+                                </select>
+                            </div>
                 <div>
                     <label class="mb-2 block text-sm font-medium" for="visual-style">Visual Style</label>
                     <select class="form-input appearance-none bg-[image:--select-button-svg] bg-right-4 bg-no-repeat" id="visual-style" name="visual-style">
@@ -235,9 +239,9 @@ Auto Generate
                         <option>Elegant</option>
                         <option>Raw</option>
                         <option>Polished</option>
-                    </select>
-                </div>
-</div>
+                                </select>
+                            </div>
+                        </div>
 <div class="space-y-4 pt-4">
 <div class="flex items-center gap-4">
 <div class="h-2.5 w-full rounded-full bg-black/10 dark:bg-white/10">
@@ -246,7 +250,7 @@ Auto Generate
 <span class="text-sm font-medium">65%</span>
 </div>
 <p class="text-center text-sm text-black/60 dark:text-white/60">Generating your moodboard... This may take a moment.</p>
-</div>
+                    </div>
 <div class="pt-4">
 <button id="generateBtn" class="w-full rounded-lg bg-primary py-3 text-base font-bold text-white transition-opacity hover:opacity-90" type="submit">
     <span id="btnText">Generate Moodboard</span>
@@ -257,12 +261,12 @@ Auto Generate
         </svg>
         Generating...
     </span>
-</button>
-</div>
-</form>
-</div>
-</div>
-</div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
 </div>
 
@@ -283,8 +287,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const tone = document.getElementById('tone').value;
         const genre = document.getElementById('genre').value;
         const visualStyle = document.getElementById('visual-style').value;
-        
-        // Show loading state
+    
+    // Show loading state
         const originalText = autoGenerateBtn.innerHTML;
         autoGenerateBtn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">refresh</span> Generating...';
         autoGenerateBtn.disabled = true;

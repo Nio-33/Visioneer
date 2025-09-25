@@ -1,119 +1,179 @@
-{% extends "dashboard/base.html" %}
-
-{% block title %}Templates - Visioneer{% endblock %}
-
-{% block dashboard_content %}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Templates</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">All</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Sci-Fi</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Drama</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Horror</button>
-        </div>
-    </div>
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta name="cache-buster" content="{{ range(1000, 9999) | random }}"/>
+    <title>Templates - Visioneer</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap&v={{ range(1000, 9999) | random }}" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries&v={{ range(1000, 9999) | random }}"></script>
+    <script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#1919e6",
+                "background-light": "#f6f6f8",
+                "background-dark": "#111121",
+              },
+              fontFamily: {
+                "display": ["Space Grotesk", "sans-serif"]
+              },
+              borderRadius: {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+            },
+          },
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&v={{ range(1000, 9999) | random }}" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex min-h-screen">
+<aside class="w-64 bg-background-dark border-r border-gray-200/10 dark:border-white/10 flex flex-col">
+<div class="h-16 flex items-center px-6 border-b border-gray-200/10 dark:border-white/10">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h1>
 </div>
-
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card template-card">
-            <div class="project-thumbnail">
-                <i class="fas fa-rocket fa-3x"></i>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Sci-Fi Adventure</h5>
-                <p class="card-text text-muted">Perfect for futuristic stories and space exploration themes.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">12 templates</small>
-                    <button class="btn btn-sm btn-primary">Use Template</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card template-card">
-            <div class="project-thumbnail" style="background: linear-gradient(45deg, #10b981, #059669);">
-                <i class="fas fa-heart fa-3x"></i>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Romantic Drama</h5>
-                <p class="card-text text-muted">Emotional and intimate storytelling with warm color palettes.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">8 templates</small>
-                    <button class="btn btn-sm btn-primary">Use Template</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card template-card">
-            <div class="project-thumbnail" style="background: linear-gradient(45deg, #ef4444, #dc2626);">
-                <i class="fas fa-skull fa-3x"></i>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Horror Thriller</h5>
-                <p class="card-text text-muted">Dark and atmospheric templates for suspenseful narratives.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">15 templates</small>
-                    <button class="btn btn-sm btn-primary">Use Template</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card template-card">
-            <div class="project-thumbnail" style="background: linear-gradient(45deg, #f59e0b, #d97706);">
-                <i class="fas fa-book fa-3x"></i>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Historical Period</h5>
-                <p class="card-text text-muted">Rich historical aesthetics for period pieces and documentaries.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">10 templates</small>
-                    <button class="btn btn-sm btn-primary">Use Template</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card template-card">
-            <div class="project-thumbnail" style="background: linear-gradient(45deg, #8b5cf6, #7c3aed);">
-                <i class="fas fa-magic fa-3x"></i>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Fantasy Adventure</h5>
-                <p class="card-text text-muted">Magical worlds and mystical creatures for fantasy stories.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">14 templates</small>
-                    <button class="btn btn-sm btn-primary">Use Template</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4 mb-4">
-        <div class="card template-card">
-            <div class="project-thumbnail" style="background: linear-gradient(45deg, #06b6d4, #0891b2);">
-                <i class="fas fa-car fa-3x"></i>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Action Thriller</h5>
-                <p class="card-text text-muted">High-energy templates for action-packed sequences.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">11 templates</small>
-                    <button class="btn btn-sm btn-primary">Use Template</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.dashboard') }}">
+<span class="material-symbols-outlined">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.projects') }}">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-medium">My Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.new_project') }}">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-medium">New Moodboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white font-semibold" href="{{ url_for('main.templates') }}">
+<span class="material-symbols-outlined">auto_awesome_mosaic</span>
+<span class="font-medium">Templates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.conversational_editor') }}">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-medium">AI Editor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.settings') }}">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
+<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUw7DYxoufqLYm6kYRHBURlhZie6SvVhCvveQZfYlLrgxXpT7nBOyZnWxxjCa-a2m0czEFa88ydJunJrCXAWBfUOZkFAwGIPalWLJai6x5JWlx1fFUZ8dky4CJEcbewmdGpZktpRDrzHnU8z_TQMdw3OyQBQpwhfcYBs6XP_JARGvKVjJ783SCwweQzE3pFPxOrP-Fz-LEYZS_pdkbyhAI5VrqO0T5GhiKWDKqHQq7-q6jeTp9cK3l4kXSPS-aVvmsXh0aC-NcK2r"/>
+<div>
+<p class="font-semibold text-gray-900 dark:text-white">Olivia Chen</p>
+<a class="text-sm text-primary hover:underline" href="#">Logout</a>
 </div>
-
-<div class="text-center mt-4">
-    <button class="btn btn-outline-primary">Load More Templates</button>
 </div>
-{% endblock %}
+</aside>
+<main class="flex-1 overflow-y-auto">
+<div class="py-10">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12">
+<h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Explore pre-designed moodboard templates to kickstart your creative process.</h1>
+<div class="max-w-md mx-auto">
+<div class="relative">
+<input class="w-full px-4 py-3 pl-12 pr-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Search templates..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">search</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 justify-center mb-8">
+<button class="px-4 py-2 bg-primary text-white rounded-lg font-medium">All</button>
+<button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600">Sci-Fi</button>
+<button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600">Film Noir</button>
+<button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600">Minimalist</button>
+<button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600">Fantasy</button>
+<button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600">Cyberpunk</button>
+<button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600">Western</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+<div class="aspect-w-16 aspect-h-9">
+<img alt="Sci-Fi Template" class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80"/>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Sci-Fi Template</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-4">Futuristic cityscapes and advanced technology themes for science fiction projects.</p>
+<button class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors">Use Template</button>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+<div class="aspect-w-16 aspect-h-9">
+<img alt="Film Noir Template" class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"/>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Film Noir Template</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-4">Dark, moody aesthetics perfect for mystery and thriller narratives.</p>
+<button class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors">Use Template</button>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+<div class="aspect-w-16 aspect-h-9">
+<img alt="Minimalist Template" class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2058&q=80"/>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Minimalist Template</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-4">Clean, simple designs focusing on essential visual elements.</p>
+<button class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors">Use Template</button>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+<div class="aspect-w-16 aspect-h-9">
+<img alt="Fantasy Template" class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"/>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Fantasy Template</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-4">Magical landscapes and mystical elements for fantasy storytelling.</p>
+<button class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors">Use Template</button>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+<div class="aspect-w-16 aspect-h-9">
+<img alt="Cyberpunk Template" class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80"/>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Cyberpunk Template</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-4">Neon-lit urban environments with high-tech, low-life aesthetics.</p>
+<button class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors">Use Template</button>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+<div class="aspect-w-16 aspect-h-9">
+<img alt="Western Template" class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"/>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Western Template</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-4">Desert landscapes and frontier themes for western narratives.</p>
+<button class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors">Use Template</button>
+</div>
+</div>
+</div>
+<div class="flex justify-center mt-12">
+<nav class="flex items-center space-x-2">
+<button class="px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">‹</button>
+<button class="px-3 py-2 bg-primary text-white rounded-lg">1</button>
+<button class="px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">2</button>
+<button class="px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">3</button>
+<span class="px-3 py-2 text-gray-500 dark:text-gray-400">...</span>
+<button class="px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">10</button>
+<button class="px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">›</button>
+</nav>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body>
+</html>

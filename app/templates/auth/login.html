@@ -37,12 +37,12 @@
 <div class="flex min-h-screen items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(17, 17, 33, 0.8), rgba(17, 17, 33, 0.8)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8XPdZf_Ss1_eyufxK4Ofv8Y_Zow4xcx_YaOs-9Xs3lxxiAn4cM1tzV5Ov14d0h-ew58_CLugkAX3a_-KO_oZqgXDCtCx0rqQxK2fuQNq1iatTzgqa7z8AII-bLtEjqS6YCzySdgbxTdD8mV2pJiB5cbcZgg1jtzKLipd7rYBHx71t0HQLr2X4racpf8_Y-UPYxxlXATTwX3wnLzdwWULtODPGYr5veaQ3VF5bi0EDtEOVLVh9JQtXRjvqVvV41RaS4SFJ9x5RMijf');">
 <div class="w-full max-w-md p-8 space-y-8 bg-background-light dark:bg-card-dark rounded-xl shadow-2xl m-4">
 <div class="text-center">
-<div class="flex justify-center items-center gap-3 mb-4">
+<a href="{{ url_for('main.index') }}" class="flex justify-center items-center gap-3 mb-4 hover:opacity-80 transition-opacity">
 <svg class="h-10 w-10 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
 </svg>
 <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Visioneer</h2>
-</div>
+</a>
 <p class="text-gray-600 dark:text-gray-400">Welcome back! Please log in to your account.</p>
 </div>
 <form action="{{ url_for('auth.login') }}" class="space-y-6" method="POST">
