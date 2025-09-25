@@ -1,0 +1,447 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Moodboard Results - Visioneer{% endblock %}
+
+{% block dashboard_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Your Generated Moodboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="downloadMoodboard()">
+                <i class="fas fa-download"></i> Download
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="shareMoodboard()">
+                <i class="fas fa-share"></i> Share
+            </button>
+        </div>
+        <a href="{{ url_for('main.new_project') }}" class="btn btn-sm btn-primary">
+            <i class="fas fa-plus"></i> Create Another
+        </a>
+    </div>
+</div>
+
+<!-- Moodboard Concept -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">AI-Generated Concept</h4>
+                <p class="card-text">{{ moodboard.concept }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Generated Images -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Visual Moodboard</h4>
+                <div class="row" id="moodboardImages">
+                    {% for image in moodboard.images %}
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card image-card h-100 border-0 shadow-lg">
+                            <div class="position-relative">
+                                <img src="{{ image.url }}" class="card-img-top" alt="Moodboard Image {{ loop.index }}" 
+                                     style="height: 250px; object-fit: cover;">
+                                <div class="position-absolute top-0 end-0 m-2">
+                                    <span class="badge bg-primary">Image {{ loop.index }}</span>
+                                </div>
+                            </div>
+                            <div class="card-body p-4">
+                                <h6 class="card-title text-dark mb-3">
+                                    <i class="fas fa-image me-2 text-primary"></i>Visual Element {{ loop.index }}
+                                </h6>
+                                <p class="card-text text-dark mb-3">
+                                    <strong>AI-Generated Description:</strong><br>
+                                    <span class="text-muted">{{ image.prompt }}</span>
+                                </p>
+                                <div class="image-analysis">
+                                    <h6 class="text-primary mb-2">🎨 Visual Analysis</h6>
+                                    <div class="analysis-details">
+                                        <div class="row mb-2">
+                                            <div class="col-6">
+                                                <small class="text-muted">Composition:</small><br>
+                                                <span class="badge bg-info">Balanced</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <small class="text-muted">Mood:</small><br>
+                                                <span class="badge bg-warning">{{ moodboard.mood|title if moodboard.mood else 'Dark' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-6">
+                                                <small class="text-muted">Style:</small><br>
+                                                <span class="badge bg-success">{{ moodboard.style|title if moodboard.style else 'Cinematic' }}</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <small class="text-muted">Quality:</small><br>
+                                                <span class="badge bg-primary">High-Res</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="image-actions mt-3">
+                                    <button class="btn btn-outline-primary btn-sm me-2" onclick="editImage({{ loop.index }})">
+                                        <i class="fas fa-edit me-1"></i>Edit
+                                    </button>
+                                    <button class="btn btn-outline-success btn-sm" onclick="downloadImage({{ loop.index }})">
+                                        <i class="fas fa-download me-1"></i>Download
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Moodboard Details -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Story Details</h5>
+                <p class="card-text">{{ moodboard.story }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Visual Style</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Style:</strong> {{ moodboard.style }}
+                    </div>
+                    <div class="col-6">
+                        <strong>Images:</strong> {{ moodboard.image_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Conversational Editing -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">AI-Powered Editing</h5>
+                <p class="card-text">Chat with AI to refine your moodboard images</p>
+                
+                <div class="chat-container" id="chatContainer" style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+                    <div class="chat-message bot-message">
+                        <strong>AI:</strong> Hi! I can help you refine your moodboard. What would you like to change?
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" class="form-control" id="chatInput" placeholder="Describe what you'd like to change...">
+                    <button class="btn btn-primary" id="sendMessageBtn">
+                        <i class="fas fa-paper-plane"></i> Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Actions -->
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <a href="{{ url_for('main.projects') }}" class="btn btn-outline-primary me-2">
+            <i class="fas fa-folder"></i> View All Projects
+        </a>
+        <a href="{{ url_for('main.new_project') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Create New Moodboard
+        </a>
+    </div>
+</div>
+
+<script>
+function downloadMoodboard() {
+    // Implement download functionality
+    alert('Download functionality will be implemented');
+}
+
+function shareMoodboard() {
+    // Implement share functionality
+    if (navigator.share) {
+        navigator.share({
+            title: 'My Visioneer Moodboard',
+            text: 'Check out my AI-generated moodboard!',
+            url: window.location.href
+        });
+    } else {
+        // Fallback to copying URL
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('Moodboard URL copied to clipboard!');
+        });
+    }
+}
+
+function editImage(imageIndex) {
+    // Implement image editing functionality
+    const editPrompt = prompt(`Describe how you'd like to modify image ${imageIndex}:`);
+    if (editPrompt) {
+        // Send edit request to backend
+        fetch(`/moodboard/{{ moodboard.id }}/edit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                edit_prompt: editPrompt,
+                image_index: imageIndex - 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Image edit request sent! The AI will process your request.');
+            } else {
+                alert('Failed to process edit request. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to process edit request. Please try again.');
+        });
+    }
+}
+
+function downloadImage(imageIndex) {
+    // Implement individual image download
+    const imageUrl = document.querySelector(`#moodboardImages .col-md-6:nth-child(${imageIndex}) img`).src;
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = `moodboard-image-${imageIndex}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Add some interactivity to images
+document.querySelectorAll('.image-card').forEach(card => {
+    card.addEventListener('click', function() {
+        const img = this.querySelector('img');
+        if (img) {
+            // Create modal or lightbox effect
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                cursor: pointer;
+            `;
+            
+            const modalImg = document.createElement('img');
+            modalImg.src = img.src;
+            modalImg.style.cssText = `
+                max-width: 90%;
+                max-height: 90%;
+                object-fit: contain;
+            `;
+            
+            modal.appendChild(modalImg);
+            document.body.appendChild(modal);
+            
+            modal.addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+        }
+    });
+});
+
+// Conversational editing functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const chatContainer = document.getElementById('chatContainer');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendMessageBtn');
+    
+    function addMessage(message, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
+        messageDiv.innerHTML = `<strong>${isUser ? 'You' : 'AI'}:</strong> ${message}`;
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        addMessage(message, true);
+        chatInput.value = '';
+        
+        // Disable input while processing
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        
+        // Send to backend
+        fetch(`/moodboard/{{ moodboard.id }}/chat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                addMessage(data.response || 'I understand. Let me help you with that.');
+                
+                // If there's an edited image, update the display
+                if (data.image) {
+                    // Update the image in the moodboard
+                    console.log('New image received:', data.image);
+                }
+            } else {
+                addMessage('Sorry, I encountered an error. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            addMessage('Sorry, I encountered an error. Please try again.');
+        })
+        .finally(() => {
+            // Re-enable input
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send';
+        });
+    }
+    
+    // Event listeners
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+});
+</script>
+
+<!-- Enhanced Styling for Moodboard Results -->
+<style>
+.moodboard-image-card {
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.moodboard-image-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15) !important;
+}
+
+.image-analysis {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.analysis-details .badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.image-actions .btn {
+    border-radius: 20px;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.image-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.card-title {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.text-primary {
+    color: #3498db !important;
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+}
+
+.bg-success {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%) !important;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
+}
+
+.bg-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+}
+
+/* Enhanced chat styling */
+.chat-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    border: 2px solid #dee2e6;
+}
+
+.chat-message {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bot-message {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.user-message {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+    margin-left: 2rem;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .moodboard-image-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .image-actions .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .analysis-details .row {
+        margin-bottom: 0.5rem;
+    }
+}
+</style>
+{% endblock %}

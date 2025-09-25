@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Visioneer Template Gallery</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                colors: {
+                  primary: "#1919e6",
+                  "background-light": "#f6f6f8",
+                  "background-dark": "#111121",
+                },
+                fontFamily: {
+                  display: ["Space Grotesk"],
+                },
+                borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+              },
+            },
+          };
+        </script>
+    <style>
+          .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+          }
+        </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex h-screen">
+<aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-gray-200/10 dark:border-white/10 flex flex-col">
+<div class="h-16 flex items-center px-6 border-b border-gray-200/10 dark:border-white/10">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h1>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.dashboard') }}">
+<span class="material-symbols-outlined">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.projects') }}">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-medium">My Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.new_project') }}">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-medium">New Moodboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white font-semibold" href="{{ url_for('main.templates') }}">
+<span class="material-symbols-outlined">auto_awesome_mosaic</span>
+<span class="font-medium">Templates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.settings') }}">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
+<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUw7DYxoufqLYm6kYRHBURlhZie6SvVhCvveQZfYlLrgxXpT7nBOyZnWxxjCa-a2m0czEFa88ydJunJrCXAWBfUOZkFAwGIPalWLJai6x5JWlx1fFUZ8dky4CJEcbewmdGpZktpRDrzHnU8z_TQMdw3OyQBQpwhfcYBs6XP_JARGvKVjJ783SCwweQzE3pFPxOrP-Fz-LEYZS_pdkbyhAI5VrqO0T5GhiKWDKqHQq7-q6jeTp9cK3l4kXSPS-aVvmsXh0aC-NcK2r"/>
+<div>
+<p class="font-semibold text-gray-900 dark:text-white">Olivia Chen</p>
+<a class="text-sm text-primary hover:underline" href="#">Logout</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+<div class="mb-8">
+<h1 class="text-4xl font-bold tracking-tighter text-gray-900 dark:text-white">Template Gallery</h1>
+<p class="mt-2 text-lg text-gray-600 dark:text-gray-400">Explore pre-designed moodboard templates to kickstart your creative process.</p>
+</div>
+<div class="mb-8 flex flex-col sm:flex-row gap-4">
+<div class="relative flex-1">
+<span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">search</span>
+<input class="w-full rounded-lg border-gray-300 dark:border-gray-700 bg-gray-200/50 dark:bg-gray-800/50 py-2 pl-10 pr-4 text-gray-900 dark:text-white focus:border-primary focus:ring-primary" placeholder="Search templates..." type="text"/>
+</div>
+</div>
+<div class="mb-8 flex flex-wrap items-center gap-2">
+<button class="rounded-full px-4 py-2 text-sm font-medium bg-primary text-white">All</button>
+<button class="rounded-full px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30">Sci-Fi</button>
+<button class="rounded-full px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30">Film Noir</button>
+<button class="rounded-full px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30">Minimalist</button>
+<button class="rounded-full px-4 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30">Fantasy</button>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+<div class="group relative flex cursor-pointer flex-col overflow-hidden rounded-lg bg-gray-200/20 dark:bg-gray-800/20">
+<div class="aspect-video w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuApwhZGqKr-CSF75C2_z8nwA7lQ383buthp50sbRbeOWBnBh6-YqlU6_IsbXFZKOwLgY3UZ06CXlhWr5-i3ob47LESULY1adoPVax1UpUO8hMJK-12AW7P-9cvs17rNUcBsk2s8Fvpwl1MXDVBkdrVPZIjCrmo08tj9rkf-Ilv1FAA1-Yc89W1G1cBuxMJ0sc2X8x92Iv04JbElX26qt9lA-__4m_eLZYVR4UTHE9X8DK53sRwUH8HMJIvVP4dW69UMy9Q-ojXDVYWN");'></div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 dark:text-white">Sci-Fi Template</h3>
+</div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+<button class="rounded-full bg-primary px-4 py-2 text-sm font-bold text-white">Apply Template</button>
+</div>
+</div>
+<div class="group relative flex cursor-pointer flex-col overflow-hidden rounded-lg bg-gray-200/20 dark:bg-gray-800/20">
+<div class="aspect-video w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAi66DXl6sBI8jEDlg-7iic6bSWUef9ne-rU4PKl_gqJkiwoEEK-FiqOkeFc9TWJyP47QSClhs5xKSVy4dj6L4CB9jg8mp0ig2no_EkAyHc0rWXnmYr_P2_tb1l1koRyRzFM9-0w5T7z2F1V29sVpYeAkR2i2__tDGBpCl_drNUl7u_-O8QSXbFy36O7EeCSaCcWEfqVIHcOmN-aTTaG9YrHx748C0nz2ED5Qd2e6o0SLYPyP3e9oKV-hC2N-q8N0sSmkzH12jPC7p1");'></div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 dark:text-white">Film Noir Template</h3>
+</div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+<button class="rounded-full bg-primary px-4 py-2 text-sm font-bold text-white">Apply Template</button>
+</div>
+</div>
+<div class="group relative flex cursor-pointer flex-col overflow-hidden rounded-lg bg-gray-200/20 dark:bg-gray-800/20">
+<div class="aspect-video w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCH1jHehZLVpPXu9uRoAwoi4mSnUuWD-K82wxehoMRckrn7zqik65iRMyd6fmsP-Xb8m9G28TUj96ifeS8zJdFqOtKib6UXITcfiq236V1Ft5sY5wZ3hie0mML90zzLzFEcjtwnfEP5OzB7U3dhL0gfcrE2HP2O7_Lx0UMhYc8vneIHX9KKpJkY0E9WcPIP4142UfbWth1Mw6n3Zo_ksmlST8k0iMtF0g7pDQeSPtuclqp2QggY5cFGbGjLM7vj1hcqY5mWWw5AwFr5");'></div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 dark:text-white">Minimalist Template</h3>
+</div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+<button class="rounded-full bg-primary px-4 py-2 text-sm font-bold text-white">Apply Template</button>
+</div>
+</div>
+<div class="group relative flex cursor-pointer flex-col overflow-hidden rounded-lg bg-gray-200/20 dark:bg-gray-800/20">
+<div class="aspect-video w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDX0a7itPGRm9TGBPKk4w4qu5E3Hhc3NFGLYZJ4puwu9FIFqAJ2guB9NlEk7CJpWaiBesU22z_CH0YglZPsAfOUaXwC6QiYRddkEEKnEASu4SzIkk33Us7fMcBjfIeuruBRX7cJCPNPFzPy9oSy4H0QiiomD1ULEnfZvY008NEW-YijxBJTC4uFK1WVuHND5sUpWdeWPs40z-x9ghRS36t7CXtqnX1VVi4ef5PUfwUZ4kqXWfkINgbPjKBV1BoaUdxYTsMSBlTXNB1b");'></div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 dark:text-white">Fantasy Template</h3>
+</div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+<button class="rounded-full bg-primary px-4 py-2 text-sm font-bold text-white">Apply Template</button>
+</div>
+</div>
+<div class="group relative flex cursor-pointer flex-col overflow-hidden rounded-lg bg-gray-200/20 dark:bg-gray-800/20">
+<div class="aspect-video w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAGkWaVMFowB1myg8ytTNo68RIWsISuaYIDosMW1hhHqB6c2sxAJLlbpxk54kzT5Of4OhrmHikdcbNSnbaLx67lrvrvTe7hzcpUeL3o5j2RjkpiVs476MswgEHk2bRv97ecQfFZhE8mJ5fPm8ZzG1ibheJz5G6vB3jPaeN7NA_HW_hyHlnD9mO9U05mbfHIPdaO0aWuTdXheWszcejb7XVWyj1FV-EXtRUHNdFz9KArJBc1eWKRqUtdaQmYeb-0TFASXdkUpUUoy_vl");'></div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 dark:text-white">Cyberpunk Template</h3>
+</div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+<button class="rounded-full bg-primary px-4 py-2 text-sm font-bold text-white">Apply Template</button>
+</div>
+</div>
+<div class="group relative flex cursor-pointer flex-col overflow-hidden rounded-lg bg-gray-200/20 dark:bg-gray-800/20">
+<div class="aspect-video w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDvtP6WWTEEXHNn12_3vatySiZLA73s9Jh5e2rzCGK7iC3xGNkai6nh3ZNSjofmo7A9BQeChpfr6YjPFYK_M_L4V3MoQH1N1UGFiNkgHmapg19Egj4nCo1ImaXZ1hakIk6hhKRSjb-JaQ3MAkVwZ8NijdWVPYTuegdkKJQEseDvWpzhVvxgTA5Om3_2zydFONgDulKASsWoDpO5wUbAn1Akf6LvjLY-fwbw7XiDTStX91aayKK-lybJHvXXS3-WMLsNOy34Ju-HR7bM");'></div>
+<div class="p-4">
+<h3 class="font-bold text-gray-900 dark:text-white">Western Template</h3>
+</div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+<button class="rounded-full bg-primary px-4 py-2 text-sm font-bold text-white">Apply Template</button>
+</div>
+</div>
+</div>
+<div class="mt-8 flex items-center justify-center">
+<nav aria-label="Pagination" class="flex items-center gap-2">
+<a class="inline-flex h-8 w-8 items-center justify-center rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700/50" href="#">
+<span class="sr-only">Previous</span>
+<span class="material-symbols-outlined text-xl">chevron_left</span>
+</a>
+<a class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-medium text-white" href="#">1</a>
+<a class="inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="#">2</a>
+<a class="inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="#">3</a>
+<span class="inline-flex h-8 w-8 items-center justify-center text-sm font-medium text-gray-600 dark:text-gray-300">...</span>
+<a class="inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-primary/20 dark:hover:bg-primary/30" href="#">10</a>
+<a class="inline-flex h-8 w-8 items-center justify-center rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700/50" href="#">
+<span class="sr-only">Next</span>
+<span class="material-symbols-outlined text-xl">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

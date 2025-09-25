@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Visioneer - Create Project</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Space+Grotesk%3Awght%40400%3B500%3B700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                colors: {
+                  primary: "#1919e6",
+                  "background-light": "#f6f6f8",
+                  "background-dark": "#111121",
+                },
+                fontFamily: {
+                  display: ["Space Grotesk"],
+                },
+                borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+              },
+            },
+          };
+        </script>
+    <style type="text/tailwindcss">
+          @layer base {
+            :root {
+              --select-button-svg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24px' height='24px' fill='rgb(157,157,184)' viewBox='0 0 256 256'%3e%3cpath d='M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z'%3e%3c/path%3e%3c/svg%3e");
+            }
+          }
+          @layer components {
+            .form-input {
+              @apply w-full rounded-lg border-background-light/[0.1] bg-background-light/50 dark:border-background-dark/[0.2] dark:bg-background-dark/50 p-4 text-base font-normal text-black dark:text-white placeholder:text-black/50 dark:placeholder:text-white/50 focus:border-primary focus:ring-primary;
+            }
+          }
+        </style>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+      </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-black dark:text-white">
+<div class="flex h-screen">
+<aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-gray-200/10 dark:border-white/10 flex flex-col">
+<div class="h-16 flex items-center px-6 border-b border-gray-200/10 dark:border-white/10">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h1>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.dashboard') }}">
+<span class="material-symbols-outlined">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.projects') }}">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-medium">My Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white font-semibold" href="{{ url_for('main.new_project') }}">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-medium">New Moodboard</span>
+</a>
+        <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.templates') }}">
+        <span class="material-symbols-outlined">auto_awesome_mosaic</span>
+        <span class="font-medium">Templates</span>
+        </a>
+        <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.settings') }}">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="font-medium">Settings</span>
+        </a>
+</nav>
+<div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
+<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUw7DYxoufqLYm6kYRHBURlhZie6SvVhCvveQZfYlLrgxXpT7nBOyZnWxxjCa-a2m0czEFa88ydJunJrCXAWBfUOZkFAwGIPalWLJai6x5JWlx1fFUZ8dky4CJEcbewmdGpZktpRDrzHnU8z_TQMdw3OyQBQpwhfcYBs6XP_JARGvKVjJ783SCwweQzE3pFPxOrP-Fz-LEYZS_pdkbyhAI5VrqO0T5GhiKWDKqHQq7-q6jeTp9cK3l4kXSPS-aVvmsXh0aC-NcK2r"/>
+<div>
+<p class="font-semibold text-gray-900 dark:text-white">Olivia Chen</p>
+<a class="text-sm text-primary hover:underline" href="#">Logout</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto">
+<div class="py-10">
+<div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+<div class="space-y-8">
+<div class="text-center">
+<h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Create a new project</h2>
+<p class="mt-4 text-lg text-black/60 dark:text-white/60">Bring your vision to life by providing the core details of your story.</p>
+</div>
+<form class="space-y-6 rounded-xl bg-background-light/50 p-6 shadow-sm dark:bg-background-dark/50 sm:p-8" action="{{ url_for('main.new_project') }}" method="POST">
+<div>
+<label class="mb-2 block text-sm font-medium" for="project-title">Project Title</label>
+<input class="form-input" id="project-title" name="project-title" placeholder="e.g., 'Cyberpunk Ronin'" type="text"/>
+</div>
+<div>
+<div class="flex items-center justify-between">
+<label class="mb-2 block text-sm font-medium" for="story-description">Story or Concept</label>
+<span class="text-sm text-black/50 dark:text-white/50">0 / 2000</span>
+</div>
+<textarea class="form-input" id="story-description" maxlength="2000" name="story-description" placeholder="Describe the key scenes, characters, and overall atmosphere..." rows="6"></textarea>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                    <label class="mb-2 block text-sm font-medium" for="mood">Mood</label>
+                    <select class="form-input appearance-none bg-[image:--select-button-svg] bg-right-4 bg-no-repeat" id="mood" name="mood">
+                        <option disabled="" selected="">Select mood</option>
+                        <option>Enigmatic</option>
+                        <option>Uplifting</option>
+                        <option>Ominous</option>
+                        <option>Nostalgic</option>
+                        <option>Melancholic</option>
+                        <option>Energetic</option>
+                        <option>Serene</option>
+                        <option>Mysterious</option>
+                        <option>Hopeful</option>
+                        <option>Dark</option>
+                        <option>Whimsical</option>
+                        <option>Dramatic</option>
+                        <option>Peaceful</option>
+                        <option>Intense</option>
+                        <option>Romantic</option>
+                        <option>Gritty</option>
+                        <option>Ethereal</option>
+                        <option>Aggressive</option>
+                        <option>Contemplative</option>
+                        <option>Playful</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="mb-2 block text-sm font-medium" for="tone">Tone</label>
+                    <select class="form-input appearance-none bg-[image:--select-button-svg] bg-right-4 bg-no-repeat" id="tone" name="tone">
+                        <option disabled="" selected="">Select tone</option>
+                        <option>Serious</option>
+                        <option>Whimsical</option>
+                        <option>Gritty</option>
+                        <option>Satirical</option>
+                        <option>Formal</option>
+                        <option>Casual</option>
+                        <option>Intimate</option>
+                        <option>Epic</option>
+                        <option>Minimalist</option>
+                        <option>Ornate</option>
+                        <option>Raw</option>
+                        <option>Polished</option>
+                        <option>Experimental</option>
+                        <option>Traditional</option>
+                        <option>Modern</option>
+                        <option>Vintage</option>
+                        <option>Futuristic</option>
+                        <option>Classic</option>
+                        <option>Avant-garde</option>
+                        <option>Understated</option>
+                    </select>
+                </div>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                    <label class="mb-2 block text-sm font-medium" for="genre">Genre</label>
+                    <select class="form-input appearance-none bg-[image:--select-button-svg] bg-right-4 bg-no-repeat" id="genre" name="genre">
+                        <option disabled="" selected="">Select genre</option>
+                        <option>Sci-Fi</option>
+                        <option>Fantasy</option>
+                        <option>Noir</option>
+                        <option>Horror</option>
+                        <option>Thriller</option>
+                        <option>Drama</option>
+                        <option>Comedy</option>
+                        <option>Romance</option>
+                        <option>Action</option>
+                        <option>Adventure</option>
+                        <option>Mystery</option>
+                        <option>Crime</option>
+                        <option>Western</option>
+                        <option>War</option>
+                        <option>Historical</option>
+                        <option>Documentary</option>
+                        <option>Biographical</option>
+                        <option>Musical</option>
+                        <option>Animation</option>
+                        <option>Experimental</option>
+                        <option>Surreal</option>
+                        <option>Psychological</option>
+                        <option>Supernatural</option>
+                        <option>Post-Apocalyptic</option>
+                        <option>Cyberpunk</option>
+                        <option>Steampunk</option>
+                        <option>Dystopian</option>
+                        <option>Utopian</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="mb-2 block text-sm font-medium" for="visual-style">Visual Style</label>
+                    <select class="form-input appearance-none bg-[image:--select-button-svg] bg-right-4 bg-no-repeat" id="visual-style" name="visual-style">
+                        <option disabled="" selected="">Select visual style</option>
+                        <option>Cinematic</option>
+                        <option>Anime</option>
+                        <option>Neo-Impressionism</option>
+                        <option>Documentary</option>
+                        <option>Photorealistic</option>
+                        <option>Stylized</option>
+                        <option>Minimalist</option>
+                        <option>Maximalist</option>
+                        <option>Vintage</option>
+                        <option>Retro</option>
+                        <option>Modern</option>
+                        <option>Futuristic</option>
+                        <option>Gothic</option>
+                        <option>Art Deco</option>
+                        <option>Bauhaus</option>
+                        <option>Surreal</option>
+                        <option>Abstract</option>
+                        <option>Expressionist</option>
+                        <option>Impressionist</option>
+                        <option>Realist</option>
+                        <option>Hyperrealist</option>
+                        <option>Watercolor</option>
+                        <option>Oil Painting</option>
+                        <option>Digital Art</option>
+                        <option>Sketch</option>
+                        <option>Line Art</option>
+                        <option>Monochrome</option>
+                        <option>High Contrast</option>
+                        <option>Soft Focus</option>
+                        <option>Sharp Focus</option>
+                        <option>Grainy</option>
+                        <option>Clean</option>
+                        <option>Gritty</option>
+                        <option>Elegant</option>
+                        <option>Raw</option>
+                        <option>Polished</option>
+                    </select>
+                </div>
+</div>
+<div class="space-y-4 pt-4">
+<div class="flex items-center gap-4">
+<div class="h-2.5 w-full rounded-full bg-black/10 dark:bg-white/10">
+<div class="h-2.5 rounded-full bg-primary" style="width: 65%"></div>
+</div>
+<span class="text-sm font-medium">65%</span>
+</div>
+<p class="text-center text-sm text-black/60 dark:text-white/60">Generating your moodboard... This may take a moment.</p>
+</div>
+<div class="pt-4">
+<button class="w-full rounded-lg bg-primary py-3 text-base font-bold text-white transition-opacity hover:opacity-90" type="submit">Generate Moodboard</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

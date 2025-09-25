@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Visioneer Welcome Tour</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#1919e6",
+                "background-light": "#f6f6f8",
+                "background-dark": "#111121",
+              },
+              fontFamily: {
+                "display": ["Space Grotesk", "sans-serif"]
+              },
+              borderRadius: {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+            },
+          },
+        }
+      </script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex flex-col min-h-screen">
+<header class="flex items-center justify-between px-6 py-4 border-b border-background-dark/10 dark:border-background-light/10">
+<div class="flex items-center gap-3">
+<svg class="text-primary h-6 w-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+<h1 class="text-lg font-bold text-background-dark dark:text-background-light">Visioneer</h1>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-background-dark/70 dark:text-background-light/70 hover:text-primary dark:hover:text-primary transition-colors" href="{{ url_for('main.dashboard') }}">Dashboard</a>
+<a class="text-sm font-medium text-background-dark/70 dark:text-background-light/70 hover:text-primary dark:hover:text-primary transition-colors" href="{{ url_for('main.projects') }}">Projects</a>
+<a class="text-sm font-medium text-background-dark/70 dark:text-background-light/70 hover:text-primary dark:hover:text-primary transition-colors" href="#">Templates</a>
+<a class="text-sm font-medium text-background-dark/70 dark:text-background-light/70 hover:text-primary dark:hover:text-primary transition-colors" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-background-light dark:bg-background-dark/50 hover:bg-background-light/80 dark:hover:bg-background-dark/30 text-background-dark/70 dark:text-background-light/70 transition-colors">
+<span class="material-symbols-outlined text-2xl">help</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBOH6VbIPqRPDvHFPt_-LRQ8pjrmH6-e_iwoIXwJOmj71HBPfW4qwTPxzHrOSy_7iEtNHUfMboqLwq52jOiBUhgniRC5yVqAUe7UDnEFIOLhaG2Lzxvo2AKBfitwKQvaYn8CeNRRyuiwo2jGnTrFuVb6HzKPVgbLsi7mxaOhAntD35rnY6CmeQG6RAHLrfOig0DO0nmScDgggPaZJXqEwiYED2kR-pBKQNGuLPqPtg_K4CClQw2CveugLUApk3fAq_nCNhK6yZnRnhm");'></div>
+</div>
+</header>
+<main class="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
+<div class="w-full max-w-2xl mx-auto">
+<div class="text-center mb-8">
+<h2 class="text-4xl font-bold tracking-tight text-background-dark dark:text-background-light sm:text-5xl">Welcome to Visioneer</h2>
+<p class="mt-4 text-lg text-background-dark/70 dark:text-background-light/70">
+            Unleash your creativity. Transform your stories into stunning visual moodboards with the power of AI. Let's begin your journey.
+          </p>
+</div>
+<div class="aspect-video w-full rounded-xl shadow-2xl overflow-hidden mb-8">
+<div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDFOy7PPr8sDGa_4AI_wrZiYNxTec_z3ohoP6Q5jUawUEN51_2SJQ7QKqYWsdaNrr_sLal343XScwOj6-U8VcmbcbT2EkupQdHHIwcfC_6KOBt_Pvg8oMD8bSYeIqAwRbzpKcSSM6XC4Yudx1ncrJhl-S3fPImi45mxozbPr6R-86S_j5QKji6chtV44UsBlkGBiuhWU4WUQJz9DTDHDDBp8uML6xFKtHClT0-rz4Bs_Hd6nbttoj1Z5QpU4HAL6yBkRCWwMI7NFEBt");'></div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="{{ url_for('main.quick_start') }}" class="inline-flex items-center justify-center px-8 py-3 text-base font-bold text-white bg-primary rounded-lg shadow-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50 transition-all">
+            Start Tour
+          </a>
+<a href="{{ url_for('main.dashboard') }}" class="inline-flex items-center justify-center px-8 py-3 text-base font-bold bg-background-light dark:bg-background-dark/50 hover:bg-background-light/80 dark:hover:bg-background-dark/30 text-background-dark/70 dark:text-background-light/70 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50 transition-all">
+            Skip for Now
+          </a>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

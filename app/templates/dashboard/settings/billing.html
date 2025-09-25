@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Visioneer Settings - Billing</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                primary: "#1919e6",
+                "background-light": "#f6f6f8",
+                "background-dark": "#111121",
+                "card-dark": "#1c1c2d",
+              },
+              fontFamily: {
+                display: ["Space Grotesk", "sans-serif"],
+              },
+              borderRadius: {
+                DEFAULT: "0.25rem",
+                lg: "0.5rem",
+                xl: "0.75rem",
+                "2xl": "1rem",
+                full: "9999px",
+              },
+            },
+          },
+        };
+      </script>
+    <style>
+        .material-symbols-outlined {
+          font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+      </style>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex h-screen">
+<aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-gray-200/10 dark:border-white/10 flex flex-col">
+<div class="h-16 flex items-center px-6 border-b border-gray-200/10 dark:border-white/10">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h1>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.dashboard') }}">
+<span class="material-symbols-outlined">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.projects') }}">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-medium">My Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.new_project') }}">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-medium">New Moodboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.templates') }}">
+<span class="material-symbols-outlined">auto_awesome_mosaic</span>
+<span class="font-medium">Templates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white font-semibold" href="{{ url_for('main.settings') }}">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
+<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUw7DYxoufqLYm6kYRHBURlhZie6SvVhCvveQZfYlLrgxXpT7nBOyZnWxxjCa-a2m0czEFa88ydJunJrCXAWBfUOZkFAwGIPalWLJai6x5JWlx1fFUZ8dky4CJEcbewmdGpZktpRDrzHnU8z_TQMdw3OyQBQpwhfcYBs6XP_JARGvKVjJ783SCwweQzE3pFPxOrP-Fz-LEYZS_pdkbyhAI5VrqO0T5GhiKWDKqHQq7-q6jeTp9cK3l4kXSPS-aVvmsXh0aC-NcK2r"/>
+<div>
+<p class="font-semibold text-gray-900 dark:text-white">Olivia Chen</p>
+<a class="text-sm text-primary hover:underline" href="#">Logout</a>
+        </div>
+    </div>
+</aside>
+<main class="flex-1 overflow-y-auto">
+<div class="p-8 md:p-12">
+<header class="mb-8">
+<h2 class="text-4xl font-bold text-gray-900 dark:text-white tracking-tight">Settings</h2>
+<p class="text-gray-500 dark:text-gray-400 mt-2">Manage your account and preferences.</p>
+</header>
+<div class="max-w-4xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<aside class="md:col-span-1">
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-card-dark hover:text-primary dark:hover:text-white" href="{{ url_for('main.settings_section', section='profile') }}">
+<span class="material-symbols-outlined">person</span>
+<span>Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-card-dark hover:text-primary dark:hover:text-white" href="{{ url_for('main.settings_section', section='password') }}">
+<span class="material-symbols-outlined">lock</span>
+<span>Password</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-card-dark hover:text-primary dark:hover:text-white" href="{{ url_for('main.settings_section', section='notifications') }}">
+<span class="material-symbols-outlined">notifications</span>
+<span>Notifications</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg bg-gray-100 dark:bg-card-dark text-primary dark:text-white font-semibold" href="{{ url_for('main.settings_section', section='billing') }}">
+<span class="material-symbols-outlined">credit_card</span>
+<span>Billing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-card-dark hover:text-primary dark:hover:text-white" href="{{ url_for('main.settings_section', section='social') }}">
+<span class="material-symbols-outlined">link</span>
+<span>Social Accounts</span>
+</a>
+</nav>
+</aside>
+<div class="md:col-span-3 space-y-8">
+<section class="bg-white dark:bg-card-dark p-6 rounded-2xl shadow-sm">
+<div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
+                    <div>
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Billing & Subscription</h3>
+<p class="text-gray-500 dark:text-gray-400 mt-1">Manage your plan and view your payment history.</p>
+                    </div>
+<button class="h-11 px-6 rounded-lg bg-primary text-white font-bold text-sm hover:opacity-90 transition-opacity w-full sm:w-auto">Upgrade Plan</button>
+                </div>
+<div class="bg-primary/10 dark:bg-primary/20 p-6 rounded-xl mb-6">
+<h4 class="text-lg font-bold text-primary dark:text-white">Current Plan: Pro</h4>
+<p class="text-gray-600 dark:text-gray-300 mb-4">Your plan renews on <span class="font-medium text-gray-800 dark:text-white">July 24, 2024</span> for $49/month.</p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="h-10 px-5 rounded-lg border border-primary text-primary dark:text-white dark:border-white font-bold text-sm hover:bg-primary/10 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-base">credit_card</span>
+Update Payment
+</button>
+<button class="h-10 px-5 rounded-lg border border-transparent text-primary dark:text-white font-bold text-sm hover:bg-primary/10 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+Cancel Subscription
+                                </button>
+                            </div>
+                        </div>
+<div>
+<h4 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">Transaction History</h4>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+                        <thead>
+<tr class="border-b border-gray-200/10 dark:border-white/10 text-xs text-gray-500 dark:text-gray-400 uppercase">
+<th class="py-3 px-4 font-medium">Date</th>
+<th class="py-3 px-4 font-medium">Description</th>
+<th class="py-3 px-4 font-medium">Amount</th>
+<th class="py-3 px-4 font-medium text-right">Status</th>
+                            </tr>
+                        </thead>
+<tbody class="divide-y divide-gray-200/10 dark:divide-white/10">
+<tr>
+<td class="py-3 px-4 text-sm">Jul 1, 2024</td>
+<td class="py-3 px-4 text-sm font-medium">Pro Plan - Monthly</td>
+<td class="py-3 px-4 text-sm">$49.00</td>
+<td class="py-3 px-4 text-sm text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+Paid
+</span>
+</td>
+                            </tr>
+                            <tr>
+<td class="py-3 px-4 text-sm">Jun 1, 2024</td>
+<td class="py-3 px-4 text-sm font-medium">Pro Plan - Monthly</td>
+<td class="py-3 px-4 text-sm">$49.00</td>
+<td class="py-3 px-4 text-sm text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+Paid
+</span>
+</td>
+                            </tr>
+                            <tr>
+<td class="py-3 px-4 text-sm">May 1, 2024</td>
+<td class="py-3 px-4 text-sm font-medium">Pro Plan - Monthly</td>
+<td class="py-3 px-4 text-sm">$49.00</td>
+<td class="py-3 px-4 text-sm text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+Paid
+</span>
+</td>
+                            </tr>
+                            <tr>
+<td class="py-3 px-4 text-sm">Apr 1, 2024</td>
+<td class="py-3 px-4 text-sm font-medium">Pro Plan - Monthly</td>
+<td class="py-3 px-4 text-sm">$49.00</td>
+<td class="py-3 px-4 text-sm text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+Paid
+</span>
+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+<div class="mt-4 text-center">
+<button class="text-sm font-medium text-primary hover:underline">Load more</button>
+</div>
+</div>
+</section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+</body></html>

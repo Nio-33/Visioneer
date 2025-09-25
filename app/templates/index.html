@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visioneer - AI Moodboard Generator</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#1919e6",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111121",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+<style>
+      .bg-hero {
+        background-image: linear-gradient(rgba(17, 17, 33, 0.7), rgba(17, 17, 33, 0.7)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuD8XPdZf_Ss1_eyufxK4Ofv8Y_Zow4xcx_YaOs-9Xs3lxxiAn4cM1tzV5Ov14d0h-ew58_CLugkAX3a_-KO_oZqgXDCtCx0rqQxK2fuQNq1iatTzgqa7z8AII-bLtEjqS6YCzySdgbxTdD8mV2pJiB5cbcZgg1jtzKLipd7rYBHx71t0HQLr2X4racpf8_Y-UPYxxlXATTwX3wnLzdwWULtODPGYr5veaQ3VF5bi0EDtEOVLVh9JQtXRjvqVvV41RaS4SFJ9x5RMijf");
+      }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex min-h-screen flex-col">
+<header class="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="container mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-3">
+<svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+<h2 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h2>
+</div>
+<nav class="hidden items-center gap-6 text-sm font-medium md:flex">
+<a class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="#features">Features</a>
+<a class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="#examples">Examples</a>
+<a class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="{{ url_for('auth.login') }}">Login</a>
+<a class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="{{ url_for('auth.register') }}">Sign Up</a>
+</nav>
+<div class="flex items-center gap-2">
+<a href="{{ url_for('auth.login') }}" class="px-4 py-2 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg transition-colors">Log In</a>
+<a href="{{ url_for('auth.register') }}" class="bg-primary px-4 py-2 text-sm font-bold text-white rounded-lg hover:opacity-90 transition-opacity">Try Visioneer</a>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<section class="relative bg-hero bg-cover bg-center py-24 sm:py-32 md:py-40">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+<h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">Create Visual Moodboards with AI</h1>
+<p class="mt-6 max-w-2xl mx-auto text-lg text-gray-300">Visioneer transforms your story descriptions into compelling visual moodboards, helping filmmakers and creative professionals bring their visions to life.</p>
+<div class="mt-10">
+<a href="{{ url_for('auth.register') }}" class="bg-primary px-8 py-3 text-base font-bold text-white rounded-lg hover:opacity-90 transition-opacity transform hover:scale-105">Try Visioneer for Free</a>
+</div>
+</div>
+</section>
+<section class="py-16 sm:py-24" id="features">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center">
+<h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Key Features</h2>
+<p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">Visioneer offers a range of powerful features to help you create stunning moodboards.</p>
+</div>
+<div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+<div class="flex flex-col gap-4">
+<div class="w-full aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDdHMF1Ep47Q2unpjojj4DSzmgbblpoeOEmaeVF1BrURy-o4IcvJa6TIZcmwSgFTCv5kDjnCJHYzCBeEOQmBU2803jshijUzHlklZyPePrCPUf_IoJ8wJ3Qyp_X8gkmQKsM5S7rpbqsWmVGnwCpYT2Uh_xvbrLNqlOJt9M9-1zZD7RN20q-JqWVbHjM-_D80jlxZDiRgjfX027e5Eqk4xGWwz3o5XKhKSSJZeIdyFSlo6zFZ6P-m233rPF3SSjklLifl_kttiY_ocDh");'></div>
+<div>
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">AI-Powered Image Generation</h3>
+<p class="mt-2 text-base text-gray-600 dark:text-gray-400">Generate high-quality images based on your story descriptions using our advanced AI algorithms.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="w-full aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDHJ_YRp52-GsarA3BQJJAdQkbI_CeFgrgly9kxnfLzibBwUWnhHB8GZQDkyGiJVqB025Tb8vzJtJ-_eKVaSc6E1aGlF1YH4Z17uXtUXW5_Ooc0e0IzzvbtLhbeThl2laukyzw1TfbEk0rLg3ABEaThhyVCQ81OX_7I1ezVliKnOtmx9YJ7bZlNmWOhREvUf6ozd7Xr6yjuHluVusfeSqAar0Y0mrVx_pFsFAjhw2JAWXeVE5OCZxoOZXema62Ka07VZm3OjoG55cHO");'></div>
+<div>
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Customizable Color Palettes</h3>
+<p class="mt-2 text-base text-gray-600 dark:text-gray-400">Easily customize the color palettes of your moodboards to match the desired aesthetic.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="w-full aspect-video bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuADGJrU9O4gG_ChFBX_Fwch09woly0OCa1KM4Nf1lFcxTQGYmkb97l22Kj_7AJxxaIr67YWE_X4DNexcpXpyhmLRXsHxDqKaArfFwkyRqPdlbQIP2Xvi2cR6jrk2AI7iI6xjC1ksMKQptkCTZNv3xYTZwWp6TxPLO5AT0g-3YvAWpDtBo_zaDK7MRmlGwD8DnXf-9A65OS9jqcT0Gin3faq_kwlvmIcuBs9SbVEReXLTHFjHbi0x_5BNGULwOn_RTB5SQuHpNRMlX8w");'></div>
+<div>
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Texture and Material Options</h3>
+<p class="mt-2 text-base text-gray-600 dark:text-gray-400">Explore a variety of textures and materials to add depth and realism to your visual concepts.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-background-light dark:bg-background-dark py-16 sm:py-24" id="examples">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center">
+<h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Examples</h2>
+<p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">See what's possible with Visioneer.</p>
+</div>
+<div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+<div class="flex flex-col gap-4 group">
+<div class="overflow-hidden rounded-lg">
+<div class="w-full aspect-video bg-cover bg-center group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDm1x6Y1CiRD5VqpcL-w4DNTgRqR8jqKfNWBGnLXnT95zh9Cab4awDI672YENTqhyHTpWMjrS9vlKFV3m5ufUBTqIoen1l7yNd52Zfu4efO1yZLqfGRphvfDm5jTViV8ZfeHJ4ttNbY6IAsueY9h-Ac79wkceYBZbCQF1pSAcom-tnv3jtMO1ds9AZkUqru7ZWnEy5PpKonjfZ4VhAXcpTCm0WPR--Yo3C8oD01FUpuQLWLjrTEU9Wzo_GcugfLPpqFeLU4yKcBVMfh");'></div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Moodboard for a sci-fi film</h3>
+<p class="mt-2 text-base text-gray-600 dark:text-gray-400">Visualizing the futuristic world of a sci-fi film.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 group">
+<div class="overflow-hidden rounded-lg">
+<div class="w-full aspect-video bg-cover bg-center group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJSDK0776ftKiSfSLxK783gipkMkTSVnynN7-vnAs3TFZlfdHL_7VMbO_C871jKxpwakioHGycBB1Ig0Ve_ssjRq5vm_zKKUKTjDQ78qHBHVynSbDPZONGhXXoX8rwvzrPmrOeVGW8Z3W1wOnTGZKAmLV8-OhgNzu9IBqOHyqKIvuhY6zVtfmEmDOs7Pi7q7o27-KOdtFlYevnDcuxmnHBsB2VwmoNTzFxf_ITfjXv4M3cp_H8n11jEkXYtDzoYhLgFY7YbpyPUyLj");'></div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Moodboard for a romantic drama</h3>
+<p class="mt-2 text-base text-gray-600 dark:text-gray-400">Capturing the essence of a romantic drama.</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 group">
+<div class="overflow-hidden rounded-lg">
+<div class="w-full aspect-video bg-cover bg-center group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5WQ01-Uj0-ZRBbw9Ig5shC7ue83GAcGcLZA57nnEm-GhbtOy0hIVSRWcWWy-z1WOmWRQaCzsPRyESfeptoT76eNyWL_RC5jK__jYa9k2KMhvmKgs-ZXmhmr_xQ-Fx8ACPCQYo7qK88P3_T5zFD7oePW_9GkDVFnm15KIQQh3CXPUmls9LV6hhXrkGUc5zkrmKYMcOLiSFIB7hPnbhqZzXV0P56QIUF9Zdi_cQEW5NbHnHbgeNGkX5KyTunW64YV5xuFRrVo0x4_uO");'></div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-gray-900 dark:text-white">Moodboard for a historical documentary</h3>
+<p class="mt-2 text-base text-gray-600 dark:text-gray-400">Bringing a historical documentary to life with visual references.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-primary/5 dark:bg-primary/10 py-16 sm:py-24">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Ready to bring your vision to life?</h2>
+<p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">Start creating stunning moodboards with Visioneer today.</p>
+<div class="mt-8">
+<a href="{{ url_for('auth.register') }}" class="bg-primary px-8 py-3 text-base font-bold text-white rounded-lg hover:opacity-90 transition-opacity transform hover:scale-105">Get Started Now</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-gray-800">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
+<div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
+<a class="hover:text-primary transition-colors" href="#">About</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">© 2024 Visioneer. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+
+</body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Visioneer - My Projects</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                colors: {
+                  primary: "#1919e6",
+                  "background-light": "#f6f6f8",
+                  "background-dark": "#111121",
+                },
+                fontFamily: {
+                  display: ["Space Grotesk", "sans-serif"],
+                },
+                borderRadius: {
+                  DEFAULT: "0.25rem",
+                  lg: "0.5rem",
+                  xl: "0.75rem",
+                  full: "9999px",
+                },
+              },
+            },
+          };
+        </script>
+    <style>
+          .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+          }
+        </style>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex h-screen">
+<aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-gray-200/10 dark:border-white/10 flex flex-col">
+<div class="h-16 flex items-center px-6 border-b border-gray-200/10 dark:border-white/10">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h1>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.dashboard') }}">
+<span class="material-symbols-outlined">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white font-semibold" href="{{ url_for('main.projects') }}">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-medium">My Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.new_project') }}">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-medium">New Moodboard</span>
+</a>
+        <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.templates') }}">
+        <span class="material-symbols-outlined">auto_awesome_mosaic</span>
+        <span class="font-medium">Templates</span>
+        </a>
+        <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.settings') }}">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="font-medium">Settings</span>
+        </a>
+</nav>
+<div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
+<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUw7DYxoufqLYm6kYRHBURlhZie6SvVhCvveQZfYlLrgxXpT7nBOyZnWxxjCa-a2m0czEFa88ydJunJrCXAWBfUOZkFAwGIPalWLJai6x5JWlx1fFUZ8dky4CJEcbewmdGpZktpRDrzHnU8z_TQMdw3OyQBQpwhfcYBs6XP_JARGvKVjJ783SCwweQzE3pFPxOrP-Fz-LEYZS_pdkbyhAI5VrqO0T5GhiKWDKqHQq7-q6jeTp9cK3l4kXSPS-aVvmsXh0aC-NcK2r"/>
+<div>
+<p class="font-semibold text-gray-900 dark:text-white">Olivia Chen</p>
+<a class="text-sm text-primary hover:underline" href="#">Logout</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto">
+<div class="p-8">
+<header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+<h2 class="text-4xl font-bold text-gray-900 dark:text-white tracking-tight">My Projects</h2>
+<div class="relative w-full sm:w-72">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">search</span>
+<input class="w-full h-12 pl-12 pr-4 rounded-lg bg-gray-100 dark:bg-gray-800 border-transparent focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500" placeholder="Search projects" type="text"/>
+</div>
+</header>
+<section>
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-6">Recent Projects</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<div class="group">
+<div class="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+<div class="w-full h-full bg-center bg-cover transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBo2DIDeQQc-RbhJxkZm6nMfj4Djyf0G5p4jF8ECCX5Sfz1gyGRIh5cY1nTGOV779TTYOWJcrNdQAKIqfyc1lrw48tDSf4xr4Mpz5hk-2b4WROAkupakDyLWGVSukHmIBOMMbGvYsVT8YgkUaxXg22iKa8uZ2K94ss-m7CzTbIfSyCRZTJiyUkyXAYAUFYDkb9IhZse91zuXmB6xciLLIJSZuIsxQRFEYIbr-mBlkxrFeYSrT2QCgce8YTl_7WlpdVaZy9066t4pRYA");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">The Silent Echo</h4>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">Last edited 2 days ago</p>
+</div>
+<div class="group">
+<div class="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+<div class="w-full h-full bg-center bg-cover transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnY_XBmTPaOK8aHmXOupiPvoWh6zVwu1j3LjzcuBXQ-6wRNq1pz2ektSzzTtvpZUKAX8qaNcGK7MxgYydu5A_OWzvkXv8g__9ndBfx0r-4pHV91DYRlsDpemBB2w3Byp9i3eTzWDiHXsjiCdU3kbJA2XP2mtTKj4h5aavE14x5d6_-n727Yno5Sa-cSA3wboCW4m64J89AhoEVYVQU2xR_1eZuRWE4EbhhdqDtk3o4w8Xj9wdq1HFgR3sAA6edQ6nAcl0TBQ7OxV3w");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">Midnight Bloom</h4>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">Last edited 3 days ago</p>
+</div>
+<div class="group">
+<div class="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+<div class="w-full h-full bg-center bg-cover transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA6-Ov3xIgY68Ox1Sy3qj9-V2rC_Yr7WZo91GnvpbE5k3KXIiF6HUPw7-bjAkDCOWiBIElhuiq7B55ES9BghlVUri-Tk_MOKoRMFgmdgyUrPO90l0XgidP1UIdZPVWxIlqIYXtMnvTRTzM0TT5LCChV6e5d56CGuVuRadux_8Fu9qgLhjuoGQMue9W19tZyEQJ6v9j3T_aQpTFO9lyGNHTr74YP_MaP6NhtkT2uxMTOl2aiAoPWl1P85IGhwZPpkSZl1R49jDeuJdVB");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">The Crimson Tide</h4>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">Last edited 5 days ago</p>
+</div>
+<div class="group">
+<div class="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+<div class="w-full h-full bg-center bg-cover transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDB0Fvia-kYFB0joxZ9121RzETPttV7hPPI8vkw8PJn_oJvH1E4Ev_DCeeAsiIdhaWOHNDWisjXPLVRnuIALZ7AirSlmcPwMhpVb2X3uRaHaD6W4qjwaVqvwZxwntf0zgq9ZEasMZpCg1dI7t7Y-ytvXs1VT8ZOx-LbRr3Mku2w2Bnd96TLmc4Gzzl3hwK5b_pdoqa0Lp9MOAnABpL3aZpSovUxePhF9yOavtXIdHBMCvnNRUvRC10VHDW-amphwbxp-h1-ntEjjepl");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">Whispers of the Past</h4>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">Last edited 1 week ago</p>
+</div>
+<div class="group">
+<div class="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+<div class="w-full h-full bg-center bg-cover transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBqVCCDPUPuJBBz_thV2XjEsw4Ye2Y0073TfZyJ1_jO35azP2XC9-ZpTaeg-1VNbnivp6bx-jXFO7KX9NNo7yubHbPg4XA0XAnqHP0xrgQm4q_ySXW2ZhWs8NjjE71GZXqahLUYSgjrE0kyMGt1dzgEBOsl44lqY_0bQpCv1_Kn4dz231soe7YcW5V4MbJbeHF4l92UiH75spfSG-Zg0G8B0GwT642XIMVchft0IHAfZUlknAxHuxv20aPhjAmerdpX2MEJFB3I8_OU");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">The Emerald Enigma</h4>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">Last edited 2 weeks ago</p>
+</div>
+<div class="group">
+<div class="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+<div class="w-full h-full bg-center bg-cover transition-transform duration-300 group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAuUFLirCsG8npcMZc6zmQCpm4dlP4R35EzV9K4zYF5iGBBED1ovUpRAa5-aVKn4adtmQbBNCGasEhpeLC_4P40-OcEgbsUqTR_cuVwTV6VlF7W11UJW5O_77VDjEleoKwfxeGa9iuDV6pOJ6JnmncTvxk60HbERJowtiV_-VJSRvf7TX9TrwJHlMjGzkML5uFXoTnfONV7KvayirpHgMYrG2bGfZv9o9ISVUjbrPra8sbo_WTfHHCkfjeGQPTEHyrYTDwpT6BuItjI");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4">
+<h4 class="text-white font-bold text-lg">Starlight Serenade</h4>
+</div>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">Last edited 3 weeks ago</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+
+</body></html>

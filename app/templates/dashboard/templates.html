@@ -1,0 +1,119 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Templates - Visioneer{% endblock %}
+
+{% block dashboard_content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Templates</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">All</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Sci-Fi</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Drama</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Horror</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card template-card">
+            <div class="project-thumbnail">
+                <i class="fas fa-rocket fa-3x"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Sci-Fi Adventure</h5>
+                <p class="card-text text-muted">Perfect for futuristic stories and space exploration themes.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">12 templates</small>
+                    <button class="btn btn-sm btn-primary">Use Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card template-card">
+            <div class="project-thumbnail" style="background: linear-gradient(45deg, #10b981, #059669);">
+                <i class="fas fa-heart fa-3x"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Romantic Drama</h5>
+                <p class="card-text text-muted">Emotional and intimate storytelling with warm color palettes.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">8 templates</small>
+                    <button class="btn btn-sm btn-primary">Use Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card template-card">
+            <div class="project-thumbnail" style="background: linear-gradient(45deg, #ef4444, #dc2626);">
+                <i class="fas fa-skull fa-3x"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Horror Thriller</h5>
+                <p class="card-text text-muted">Dark and atmospheric templates for suspenseful narratives.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">15 templates</small>
+                    <button class="btn btn-sm btn-primary">Use Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card template-card">
+            <div class="project-thumbnail" style="background: linear-gradient(45deg, #f59e0b, #d97706);">
+                <i class="fas fa-book fa-3x"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Historical Period</h5>
+                <p class="card-text text-muted">Rich historical aesthetics for period pieces and documentaries.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">10 templates</small>
+                    <button class="btn btn-sm btn-primary">Use Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card template-card">
+            <div class="project-thumbnail" style="background: linear-gradient(45deg, #8b5cf6, #7c3aed);">
+                <i class="fas fa-magic fa-3x"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Fantasy Adventure</h5>
+                <p class="card-text text-muted">Magical worlds and mystical creatures for fantasy stories.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">14 templates</small>
+                    <button class="btn btn-sm btn-primary">Use Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card template-card">
+            <div class="project-thumbnail" style="background: linear-gradient(45deg, #06b6d4, #0891b2);">
+                <i class="fas fa-car fa-3x"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Action Thriller</h5>
+                <p class="card-text text-muted">High-energy templates for action-packed sequences.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">11 templates</small>
+                    <button class="btn btn-sm btn-primary">Use Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <button class="btn btn-outline-primary">Load More Templates</button>
+</div>
+{% endblock %}

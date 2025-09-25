@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>Visioneer Dashboard</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap&v=1.0" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries&v=1.0"></script>
+    <script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#1919e6",
+                "background-light": "#f6f6f8",
+                "background-dark": "#111121",
+              },
+              fontFamily: {
+                "display": ["Space Grotesk", "sans-serif"]
+              },
+              borderRadius: {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+            },
+          },
+        }
+      </script>
+    <style>
+        body {
+          font-family: 'Space Grotesk', sans-serif;
+        }
+        .material-symbols-outlined {
+          font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+      </style>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex h-screen">
+<aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-gray-200/10 dark:border-white/10 flex flex-col">
+<div class="h-16 flex items-center px-6 border-b border-gray-200/10 dark:border-white/10">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h1>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white font-semibold" href="{{ url_for('main.dashboard') }}">
+<span class="material-symbols-outlined">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.projects') }}">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-medium">My Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.new_project') }}">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-medium">New Moodboard</span>
+</a>
+        <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.templates') }}">
+        <span class="material-symbols-outlined">auto_awesome_mosaic</span>
+        <span class="font-medium">Templates</span>
+        </a>
+        <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.settings') }}">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="font-medium">Settings</span>
+        </a>
+</nav>
+<div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
+<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUw7DYxoufqLYm6kYRHBURlhZie6SvVhCvveQZfYlLrgxXpT7nBOyZnWxxjCa-a2m0czEFa88ydJunJrCXAWBfUOZkFAwGIPalWLJai6x5JWlx1fFUZ8dky4CJEcbewmdGpZktpRDrzHnU8z_TQMdw3OyQBQpwhfcYBs6XP_JARGvKVjJ783SCwweQzE3pFPxOrP-Fz-LEYZS_pdkbyhAI5VrqO0T5GhiKWDKqHQq7-q6jeTp9cK3l4kXSPS-aVvmsXh0aC-NcK2r"/>
+<div>
+<p class="font-semibold text-gray-900 dark:text-white">Olivia Chen</p>
+<a class="text-sm text-primary hover:underline" href="#">Logout</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-12">
+<h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tighter">Unlock the Full Potential of Visioneer</h2>
+<p class="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Discover advanced features and tips to elevate your moodboard creation process. Learn how to refine your visuals, collaborate effectively, and integrate Visioneer into your workflow.
+            </p>
+</div>
+<div class="space-y-16">
+<div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="space-y-4">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Refinement Options</h3>
+<p class="text-gray-600 dark:text-gray-400">
+                  Fine-tune your moodboards with advanced refinement options. Adjust color palettes, lighting, and composition to match your exact vision. Experiment with different styles and filters to achieve the perfect aesthetic.
+                </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-lg shadow-primary/10">
+<div class="w-full aspect-[4/3] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfeSvXBStzVavOjhAGbzcQqfyZG_LsrVpSC_pKbfP13ou4CjL1q2Ab9lbeLzakk8XkoxLhWhlKha1HAEqX7EVZyi1VuHDvAAvDR_FJf2E77GM7xfeuGpz3t_I05-czUlD92S4bvERSBM091A7MeSIjqybjCAO1LPoJFFMn16_H7urBNmoJlrVBEowE9koZG9f6Kpc8I7DUCX-8BQXF2iKy_UcCOIuHKSJFDCa7FXEcNCJX1hv1IL8fiNQcdKM83UtSzqweUOXTHyKz");'></div>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="space-y-4 md:order-2">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Annotation Tools</h3>
+<p class="text-gray-600 dark:text-gray-400">
+                  Enhance your moodboards with annotation tools. Add text overlays, arrows, and shapes to highlight key elements and communicate your ideas effectively. Use annotations to provide context and guide discussions with your team.
+                </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-lg shadow-primary/10 md:order-1">
+<div class="w-full aspect-[4/3] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDs3PYuEQ6EUVfhOE86CYKsE9jc_BMys5aZJDsOVbNiYOrV8F5elzzo6_I2ML709UAktbE4fbqYEFJzPyn5H8Ms4CD9DnOeO92-jQ0sHSreFAIBrbUL9J-Fwu_TvkJEXw3e0p08oo7m_8qWcAEhYsc0Pk4TBDvUmRupptXOEHewrNriMlJ3rj3guAlEfpsk4QK88r7YPfibzH02--9qnBj6YpiZRscpJPAfQ7qO87WDFcpNeW5It8MoPz6HVfiIgHtIhBhdgnnPdU_k");'></div>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="space-y-4">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Collaborative Features</h3>
+<p class="text-gray-600 dark:text-gray-400">
+                  Collaborate seamlessly with your team using Visioneer's collaborative features. Share your moodboards, invite feedback, and track changes in real-time. Streamline your workflow and ensure everyone is aligned on the creative direction.
+                </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-lg shadow-primary/10">
+<div class="w-full aspect-[4/3] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANVSOKeVDAVt1yjLJXihRX11BLpaqqIQF5Q9Gu4ULtVjiOly5d4_DF7guDMrFXfYPXjReShytBNj0JdMFmsQAQkn0wa6Lf-UdDJfsv7sYplNzd7bfXxGWnape5wUFw0uU85TfIpnviaWRWnlTYazy_GSnHHZOF_NzJ_OU6rLlnTrav2p7BBvKv74MKxj--q5DprZQKzKjXuSq3eIRYlzrkNk23wxU71Ga41j9TZeDm05B8iCzADvMKMA24GM317FKaCGcPVP4H7QVJ");'></div>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="space-y-4 md:order-2">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Integrations</h3>
+<p class="text-gray-600 dark:text-gray-400">
+                  Integrate Visioneer with your favorite tools and platforms. Connect with project management software, design applications, and communication channels to create a unified workflow. Maximize efficiency and keep all your creative assets in one place.
+                </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-lg shadow-primary/10 md:order-1">
+<div class="w-full aspect-[4/3] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA-ICImwtMnb9yduD99mQMZdHbrCzTkDb-hJG1vC35RRQkYxCNGjHkAENtKqnCAATYaw3-cVP1Dcnjbow4v_FSEZ5YHicQ4dNbEDV603af8PxJ-AyjtdweEUDxjBMcyxuW78qmsDkMjjNweOnvyrsJ1sRNOPcTprZHBEr-t9hle-V3DnoCJggi6bm28KdCc8W8fjqyWdyKN7ky5IxiadwwNUR4FuD8Zfu0c56mEOW-i8Gb1Q3D8cHHRhFxcTR8yYVFTtfp-CXY6RZpK");'></div>
+</div>
+</div>
+</div>
+<div class="text-center mt-16">
+<a href="{{ url_for('main.new_project') }}" class="bg-primary text-white font-bold py-3 px-8 rounded-lg text-base hover:opacity-90 transition-opacity">
+              Explore Advanced Features
+            </a>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

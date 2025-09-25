@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Visioneer - Advanced Features</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#1919e6",
+                "background-light": "#f6f6f8",
+                "background-dark": "#111121",
+              },
+              fontFamily: {
+                "display": ["Space Grotesk", "sans-serif"]
+              },
+              borderRadius: {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+            },
+          },
+        }
+      </script>
+    <style>
+        body {
+          font-family: 'Space Grotesk', sans-serif;
+        }
+      </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex flex-col min-h-screen">
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-gray-200/10 dark:border-gray-700/50">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-4">
+<svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ url_for('main.dashboard') }}">Dashboard</a>
+<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ url_for('main.projects') }}">Projects</a>
+<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Templates</a>
+<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Learn</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex items-center justify-center h-10 px-4 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary text-sm font-bold hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
+              New Project
+            </button>
+<div class="w-10 h-10 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnpDLG6zOZi0jdtLSAAxU0gbU1k7UxcuKqRmIcB5sOOPfZ5hdAhYWZrbtr-qEawDV3dYt09TawXNUW0DjevG5EPHETpG8HL2z0unyIWg7ZLVGtfBPuBOsFs5uVBvvjpx0S9jtJEzEBmoLFPm7oZ2d0_E3bfYdT9mX4Lad-y3z8_2ghMfgy7jCi8u4rGSywo7kjLPJZr4Dxs28Ho5t1KPur2FhpzGhy3UZWR2EQXaGk4AnwKVKLZR_JL1xnY6UBZ-fLwk0_RL6Cym1-");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-12">
+<h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tighter">Unlock the Full Potential of Visioneer</h2>
+<p class="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Discover advanced features and tips to elevate your moodboard creation process. Learn how to refine your visuals, collaborate effectively, and integrate Visioneer into your workflow.
+            </p>
+</div>
+<div class="space-y-16">
+<div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="space-y-4">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Refinement Options</h3>
+<p class="text-gray-600 dark:text-gray-400">
+                  Fine-tune your moodboards with advanced refinement options. Adjust color palettes, lighting, and composition to match your exact vision. Experiment with different styles and filters to achieve the perfect aesthetic.
+                </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-lg shadow-primary/10">
+<div class="w-full aspect-[4/3] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfeSvXBStzVavOjhAGbzcQqfyZG_LsrVpSC_pKbfP13ou4CjL1q2Ab9lbeLzakk8XkoxLhWhlKha1HAEqX7EVZyi1VuHDvAAvDR_FJf2E77GM7xfeuGpz3t_I05-czUlD92S4bvERSBM091A7MeSIjqybjCAO1LPoJFFMn16_H7urBNmoJlrVBEowE9koZG9f6Kpc8I7DUCX-8BQXF2iKy_UcCOIuHKSJFDCa7FXEcNCJX1hv1IL8fiNQcdKM83UtSzqweUOXTHyKz");'></div>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="space-y-4 md:order-2">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Annotation Tools</h3>
+<p class="text-gray-600 dark:text-gray-400">
+                  Enhance your moodboards with annotation tools. Add text overlays, arrows, and shapes to highlight key elements and communicate your ideas effectively. Use annotations to provide context and guide discussions with your team.
+                </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-lg shadow-primary/10 md:order-1">
+<div class="w-full aspect-[4/3] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDs3PYuEQ6EUVfhOE86CYKsE9jc_BMys5aZJDsOVbNiYOrV8F5elzzo6_I2ML709UAktbE4fbqYEFJzPyn5H8Ms4CD9DnOeO92-jQ0sHSreFAIBrbUL9J-Fwu_TvkJEXw3e0p08oo7m_8qWcAEhYsc0Pk4TBDvUmRupptXOEHewrNriMlJ3rj3guAlEfpsk4QK88r7YPfibzH02--9qnBj6YpiZRscpJPAfQ7qO87WDFcpNeW5It8MoPz6HVfiIgHtIhBhdgnnPdU_k");'></div>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="space-y-4">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Collaborative Features</h3>
+<p class="text-gray-600 dark:text-gray-400">
+                  Collaborate seamlessly with your team using Visioneer's collaborative features. Share your moodboards, invite feedback, and track changes in real-time. Streamline your workflow and ensure everyone is aligned on the creative direction.
+                </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-lg shadow-primary/10">
+<div class="w-full aspect-[4/3] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANVSOKeVDAVt1yjLJXihRX11BLpaqqIQF5Q9Gu4ULtVjiOly5d4_DF7guDMrFXfYPXjReShytBNj0JdMFmsQAQkn0wa6Lf-UdDJfsv7sYplNzd7bfXxGWnape5wUFw0uU85TfIpnviaWRWnlTYazy_GSnHHZOF_NzJ_OU6rLlnTrav2p7BBvKv74MKxj--q5DprZQKzKjXuSq3eIRYlzrkNk23wxU71Ga41j9TZeDm05B8iCzADvMKMA24GM317FKaCGcPVP4H7QVJ");'></div>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="space-y-4 md:order-2">
+<h3 class="text-2xl font-bold text-gray-900 dark:text-white">Integrations</h3>
+<p class="text-gray-600 dark:text-gray-400">
+                  Integrate Visioneer with your favorite tools and platforms. Connect with project management software, design applications, and communication channels to create a unified workflow. Maximize efficiency and keep all your creative assets in one place.
+                </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-lg shadow-primary/10 md:order-1">
+<div class="w-full aspect-[4/3] bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA-ICImwtMnb9yduD99mQMZdHbrCzTkDb-hJG1vC35RRQkYxCNGjHkAENtKqnCAATYaw3-cVP1Dcnjbow4v_FSEZ5YHicQ4dNbEDV603af8PxJ-AyjtdweEUDxjBMcyxuW78qmsDkMjjNweOnvyrsJ1sRNOPcTprZHBEr-t9hle-V3DnoCJggi6bm28KdCc8W8fjqyWdyKN7ky5IxiadwwNUR4FuD8Zfu0c56mEOW-i8Gb1Q3D8cHHRhFxcTR8yYVFTtfp-CXY6RZpK");'></div>
+</div>
+</div>
+</div>
+<div class="text-center mt-16">
+<a href="{{ url_for('main.dashboard') }}" class="bg-primary text-white font-bold py-3 px-8 rounded-lg text-base hover:opacity-90 transition-opacity">
+              Explore Advanced Features
+            </a>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
