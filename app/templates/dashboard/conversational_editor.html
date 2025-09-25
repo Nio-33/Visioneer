@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Visioneer - Conversational Editor</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1919e6",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111121",
+                        "card-dark": "#1c1c2d",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        "2xl": "1rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-gray-200/10 dark:border-white/10 flex flex-col">
+            <div class="h-16 flex items-center px-6 border-b border-gray-200/10 dark:border-white/10">
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white">Visioneer</h1>
+            </div>
+            <nav class="flex-1 px-4 py-6 space-y-2">
+                <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.dashboard') }}">
+                    <span class="material-symbols-outlined">home</span>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.projects') }}">
+                    <span class="material-symbols-outlined">folder</span>
+                    <span class="font-medium">My Projects</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.new_project') }}">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <span class="font-medium">New Moodboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.templates') }}">
+                    <span class="material-symbols-outlined">auto_awesome_mosaic</span>
+                    <span class="font-medium">Templates</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-white font-semibold" href="#">
+                    <span class="material-symbols-outlined">chat</span>
+                    <span class="font-medium">AI Editor</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-white transition-colors" href="{{ url_for('main.settings') }}">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </nav>
+            <div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
+                <img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUw7DYxoufqLYm6kYRHBURlhZie6SvVhCvveQZfYlLrgxXpT7nBOyZnWxxjCa-a2m0czEFa88ydJunJrCXAWBfUOZkFAwGIPalWLJai6x5JWlx1fFUZ8dky4CJEcbewmdGpZktpRDrzHnU8z_TQMdw3OyQBQpwhfcYBs3XP_JARGvKVjJ783SCwweQzE3pFPxOrP-Fz-LEYZS_pdkbyhAI5VrqO0T5GhiKWDKqHQq7-q6jeTp9cK3l4kXSPS-aVvmsXh0aC-NcK2r"/>
+                <div>
+                    <p class="font-semibold text-gray-900 dark:text-white">Olivia Chen</p>
+                    <a class="text-sm text-primary hover:underline" href="#">Logout</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <div class="p-8 md:p-12">
+                <header class="mb-8">
+                    <h2 class="text-4xl font-bold text-gray-900 dark:text-white tracking-tight">AI Conversational Editor</h2>
+                    <p class="text-gray-500 dark:text-gray-400 mt-2">Edit images through natural conversation with AI</p>
+                </header>
+
+                <div class="max-w-6xl mx-auto">
+                    <!-- Session Controls -->
+                    <div class="bg-white dark:bg-card-dark p-6 rounded-2xl shadow-sm mb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Session Controls</h3>
+                            <div class="flex gap-3">
+                                <button id="startSessionBtn" class="h-10 px-6 rounded-lg bg-primary text-white font-bold text-sm hover:opacity-90 transition-opacity">
+                                    <span class="material-symbols-outlined text-base mr-2">play_arrow</span>
+                                    Start Session
+                                </button>
+                                <button id="endSessionBtn" class="h-10 px-6 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" disabled>
+                                    <span class="material-symbols-outlined text-base mr-2">stop</span>
+                                    End Session
+                                </button>
+                            </div>
+                        </div>
+                        <div id="sessionStatus" class="text-sm text-gray-500 dark:text-gray-400">
+                            No active session. Click "Start Session" to begin.
+                        </div>
+                    </div>
+
+                    <!-- Image Upload Area -->
+                    <div class="bg-white dark:bg-card-dark p-6 rounded-2xl shadow-sm mb-8">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Upload Image</h3>
+                        <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center">
+                            <input type="file" id="imageUpload" accept="image/*" class="hidden">
+                            <div id="uploadArea" class="cursor-pointer">
+                                <span class="material-symbols-outlined text-4xl text-gray-400 mb-4">cloud_upload</span>
+                                <p class="text-gray-500 dark:text-gray-400">Click to upload an image or drag and drop</p>
+                                <p class="text-sm text-gray-400 mt-2">PNG, JPG, GIF up to 8MB</p>
+                            </div>
+                            <div id="imagePreview" class="hidden mt-4">
+                                <img id="previewImg" class="max-w-full max-h-64 mx-auto rounded-lg" alt="Preview">
+                                <button id="removeImage" class="mt-2 text-sm text-red-600 hover:text-red-800">Remove Image</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Interface -->
+                    <div class="bg-white dark:bg-card-dark p-6 rounded-2xl shadow-sm mb-8">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Conversation</h3>
+                        <div id="chatContainer" class="h-96 overflow-y-auto border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4">
+                            <div class="text-center text-gray-500 dark:text-gray-400">
+                                Start a conversation to edit your image
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <input type="text" id="messageInput" placeholder="Describe what you want to change..." 
+                                   class="flex-1 h-11 px-4 rounded-lg bg-gray-100 dark:bg-background-dark border-transparent focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900 dark:text-white" disabled>
+                            <button id="sendMessageBtn" class="h-11 px-6 rounded-lg bg-primary text-white font-bold text-sm hover:opacity-90 transition-opacity" disabled>
+                                <span class="material-symbols-outlined text-base">send</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Generated Images -->
+                    <div class="bg-white dark:bg-card-dark p-6 rounded-2xl shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Generated Images</h3>
+                        <div id="generatedImages" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                                Generated images will appear here
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        class ConversationalEditor {
+            constructor() {
+                this.sessionId = null;
+                this.isSessionActive = false;
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                // Session controls
+                document.getElementById('startSessionBtn').addEventListener('click', () => this.startSession());
+                document.getElementById('endSessionBtn').addEventListener('click', () => this.endSession());
+
+                // Image upload
+                document.getElementById('imageUpload').addEventListener('change', (e) => this.handleImageUpload(e));
+                document.getElementById('uploadArea').addEventListener('click', () => document.getElementById('imageUpload').click());
+                document.getElementById('removeImage').addEventListener('click', () => this.removeImage());
+
+                // Message sending
+                document.getElementById('sendMessageBtn').addEventListener('click', () => this.sendMessage());
+                document.getElementById('messageInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+            }
+
+            async startSession() {
+                try {
+                    const response = await fetch('/api/conversational-editing/start-session', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        this.sessionId = data.session_id;
+                        this.isSessionActive = true;
+                        this.updateSessionStatus('Session active', 'text-green-600');
+                        this.enableControls();
+                        this.addChatMessage('AI', 'Hello! I\'m ready to help you edit your image. Upload an image and tell me what you\'d like to change.');
+                    } else {
+                        this.showError('Failed to start session: ' + data.error);
+                    }
+                } catch (error) {
+                    this.showError('Error starting session: ' + error.message);
+                }
+            }
+
+            async endSession() {
+                if (!this.sessionId) return;
+
+                try {
+                    const response = await fetch(`/api/conversational-editing/end-session/${this.sessionId}`, {
+                        method: 'DELETE'
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        this.sessionId = null;
+                        this.isSessionActive = false;
+                        this.updateSessionStatus('Session ended', 'text-gray-500');
+                        this.disableControls();
+                        this.clearChat();
+                    } else {
+                        this.showError('Failed to end session: ' + data.error);
+                    }
+                } catch (error) {
+                    this.showError('Error ending session: ' + error.message);
+                }
+            }
+
+            async sendMessage() {
+                const messageInput = document.getElementById('messageInput');
+                const message = messageInput.value.trim();
+                
+                if (!message || !this.isSessionActive) return;
+
+                // Add user message to chat
+                this.addChatMessage('You', message);
+                messageInput.value = '';
+
+                // Show loading
+                const loadingId = this.addChatMessage('AI', 'Thinking...', true);
+
+                try {
+                    const formData = new FormData();
+                    formData.append('session_id', this.sessionId);
+                    formData.append('message', message);
+                    
+                    // Add image if available
+                    const imageFile = document.getElementById('imageUpload').files[0];
+                    if (imageFile) {
+                        formData.append('image', imageFile);
+                    }
+
+                    const response = await fetch('/api/conversational-editing/send-message', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+                    
+                    // Remove loading message
+                    this.removeChatMessage(loadingId);
+                    
+                    if (data.success) {
+                        // Add AI response
+                        if (data.response_text) {
+                            this.addChatMessage('AI', data.response_text);
+                        }
+                        
+                        // Display generated images
+                        if (data.generated_images && data.generated_images.length > 0) {
+                            this.displayGeneratedImages(data.generated_images);
+                        }
+                    } else {
+                        this.addChatMessage('AI', 'Sorry, I encountered an error: ' + data.error);
+                    }
+                } catch (error) {
+                    this.removeChatMessage(loadingId);
+                    this.addChatMessage('AI', 'Sorry, I encountered an error: ' + error.message);
+                }
+            }
+
+            handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        document.getElementById('previewImg').src = e.target.result;
+                        document.getElementById('uploadArea').classList.add('hidden');
+                        document.getElementById('imagePreview').classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            removeImage() {
+                document.getElementById('imageUpload').value = '';
+                document.getElementById('uploadArea').classList.remove('hidden');
+                document.getElementById('imagePreview').classList.add('hidden');
+            }
+
+            addChatMessage(sender, message, isLoading = false) {
+                const chatContainer = document.getElementById('chatContainer');
+                const messageId = 'msg_' + Date.now();
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.id = messageId;
+                messageDiv.className = `mb-4 ${isLoading ? 'opacity-50' : ''}`;
+                
+                messageDiv.innerHTML = `
+                    <div class="flex ${sender === 'You' ? 'justify-end' : 'justify-start'}">
+                        <div class="max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                            sender === 'You' 
+                                ? 'bg-primary text-white' 
+                                : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white'
+                        }">
+                            <div class="font-semibold text-sm mb-1">${sender}</div>
+                            <div>${message}</div>
+                        </div>
+                    </div>
+                `;
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                return messageId;
+            }
+
+            removeChatMessage(messageId) {
+                const messageElement = document.getElementById(messageId);
+                if (messageElement) {
+                    messageElement.remove();
+                }
+            }
+
+            displayGeneratedImages(images) {
+                const container = document.getElementById('generatedImages');
+                container.innerHTML = '';
+                
+                images.forEach((imageData, index) => {
+                    const imageDiv = document.createElement('div');
+                    imageDiv.className = 'bg-gray-100 dark:bg-gray-800 rounded-lg p-4';
+                    imageDiv.innerHTML = `
+                        <img src="${imageData}" alt="Generated image ${index + 1}" class="w-full h-48 object-cover rounded-lg mb-2">
+                        <div class="flex gap-2">
+                            <button onclick="editor.downloadImage('${imageData}', 'edited_${index + 1}.png')" 
+                                    class="flex-1 h-8 px-3 rounded bg-primary text-white text-sm hover:opacity-90">
+                                Download
+                            </button>
+                            <button onclick="editor.useImage('${imageData}')" 
+                                    class="flex-1 h-8 px-3 rounded border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm hover:bg-gray-50 dark:hover:bg-gray-800">
+                                Use This
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(imageDiv);
+                });
+            }
+
+            downloadImage(imageData, filename) {
+                const link = document.createElement('a');
+                link.href = imageData;
+                link.download = filename;
+                link.click();
+            }
+
+            useImage(imageData) {
+                // Convert base64 to file and set as current image
+                fetch(imageData)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], 'current_image.png', { type: 'image/png' });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        document.getElementById('imageUpload').files = dataTransfer.files;
+                        this.handleImageUpload({ target: { files: [file] } });
+                    });
+            }
+
+            updateSessionStatus(message, className) {
+                const statusElement = document.getElementById('sessionStatus');
+                statusElement.textContent = message;
+                statusElement.className = `text-sm ${className}`;
+            }
+
+            enableControls() {
+                document.getElementById('startSessionBtn').disabled = true;
+                document.getElementById('endSessionBtn').disabled = false;
+                document.getElementById('messageInput').disabled = false;
+                document.getElementById('sendMessageBtn').disabled = false;
+            }
+
+            disableControls() {
+                document.getElementById('startSessionBtn').disabled = false;
+                document.getElementById('endSessionBtn').disabled = true;
+                document.getElementById('messageInput').disabled = true;
+                document.getElementById('sendMessageBtn').disabled = true;
+            }
+
+            clearChat() {
+                document.getElementById('chatContainer').innerHTML = `
+                    <div class="text-center text-gray-500 dark:text-gray-400">
+                        Start a conversation to edit your image
+                    </div>
+                `;
+                document.getElementById('generatedImages').innerHTML = `
+                    <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                        Generated images will appear here
+                    </div>
+                `;
+            }
+
+            showError(message) {
+                console.error(message);
+                // You could add a toast notification here
+                alert(message);
+            }
+        }
+
+        // Initialize the editor
+        const editor = new ConversationalEditor();
+    </script>
+</body>
+</html>

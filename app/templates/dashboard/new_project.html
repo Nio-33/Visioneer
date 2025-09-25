@@ -96,7 +96,13 @@
 <div>
 <div class="flex items-center justify-between">
 <label class="mb-2 block text-sm font-medium" for="story-description">Story or Concept</label>
+<div class="flex items-center gap-2">
 <span class="text-sm text-black/50 dark:text-white/50">0 / 2000</span>
+<button type="button" id="auto-generate-btn" class="flex items-center gap-1 px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-sm">auto_fix_high</span>
+Auto Generate
+</button>
+</div>
 </div>
 <textarea class="form-input" id="story-description" maxlength="2000" name="story-description" placeholder="Describe the key scenes, characters, and overall atmosphere..." rows="6"></textarea>
 </div>
@@ -242,7 +248,16 @@
 <p class="text-center text-sm text-black/60 dark:text-white/60">Generating your moodboard... This may take a moment.</p>
 </div>
 <div class="pt-4">
-<button class="w-full rounded-lg bg-primary py-3 text-base font-bold text-white transition-opacity hover:opacity-90" type="submit">Generate Moodboard</button>
+<button id="generateBtn" class="w-full rounded-lg bg-primary py-3 text-base font-bold text-white transition-opacity hover:opacity-90" type="submit">
+    <span id="btnText">Generate Moodboard</span>
+    <span id="btnLoading" class="hidden">
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Generating...
+    </span>
+</button>
 </div>
 </form>
 </div>
@@ -250,5 +265,90 @@
 </div>
 </main>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const generateBtn = document.getElementById('generateBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoading = document.getElementById('btnLoading');
+    const autoGenerateBtn = document.getElementById('auto-generate-btn');
+    const storyDescription = document.getElementById('story-description');
+    
+    // Auto-generate story functionality
+    autoGenerateBtn.addEventListener('click', function() {
+        // Get current form values to use as context
+        const projectTitle = document.getElementById('project-title').value;
+        const mood = document.getElementById('mood').value;
+        const tone = document.getElementById('tone').value;
+        const genre = document.getElementById('genre').value;
+        const visualStyle = document.getElementById('visual-style').value;
+        
+        // Show loading state
+        const originalText = autoGenerateBtn.innerHTML;
+        autoGenerateBtn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">refresh</span> Generating...';
+        autoGenerateBtn.disabled = true;
+        
+        // Create context for AI generation
+        const context = {
+            project_title: projectTitle || 'Untitled Project',
+            mood: mood || 'Not specified',
+            tone: tone || 'Not specified', 
+            genre: genre || 'Not specified',
+            visual_style: visualStyle || 'Not specified'
+        };
+        
+        // Send request to auto-generate story
+        fetch('/api/auto-generate-story', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(context)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.story) {
+                storyDescription.value = data.story;
+                // Update character count
+                updateCharacterCount();
+            } else {
+                alert('Failed to generate story: ' + (data.error || 'Unknown error'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to generate story. Please try again.');
+        })
+        .finally(() => {
+            // Restore button state
+            autoGenerateBtn.innerHTML = originalText;
+            autoGenerateBtn.disabled = false;
+        });
+    });
+    
+    // Character count update function
+    function updateCharacterCount() {
+        const count = storyDescription.value.length;
+        const countElement = document.querySelector('.text-sm.text-black\\/50');
+        if (countElement) {
+            countElement.textContent = `${count} / 2000`;
+        }
+    }
+    
+    // Update character count on input
+    storyDescription.addEventListener('input', updateCharacterCount);
+    
+    form.addEventListener('submit', function(e) {
+        // Show loading state
+        generateBtn.disabled = true;
+        btnText.classList.add('hidden');
+        btnLoading.classList.remove('hidden');
+        
+        // The form will submit normally and redirect to results page
+        // No need to prevent default since we want the server to process it
+    });
+});
+</script>
 
 </body></html>

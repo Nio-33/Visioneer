@@ -39,6 +39,9 @@ def create_app(config_name=None):
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
     
+    from app.api.conversational_editing import bp as conversational_bp
+    app.register_blueprint(conversational_bp)
+    
     # Add request logging middleware
     @app.before_request
     def log_request_info():
