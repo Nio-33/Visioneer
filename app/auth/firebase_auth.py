@@ -116,14 +116,9 @@ class AuthManager:
     def login_user(self, id_token: str) -> bool:
         """Login user with Firebase ID token"""
         if not self.firebase_auth:
-            # For development, create a mock user
-            session['user_id'] = 'dev-user-123'
-            session['user_email'] = 'dev@example.com'
-            session['user_name'] = 'Development User'
-            session['user_picture'] = None
-            session['authenticated'] = True
-            return True
-        
+            logger.error("Firebase authentication is not available")
+            return False
+
         user_data = self.firebase_auth.verify_id_token(id_token)
         if user_data:
             session['user_id'] = user_data['uid']

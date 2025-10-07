@@ -10,51 +10,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-@bp.route('/login', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET'])
 def login():
     """Login page"""
-    if request.method == 'POST':
-        # Handle form submission
-        email = request.form.get('email')
-        password = request.form.get('password')
-        
-        if not email or not password:
-            flash('Email and password are required', 'error')
-            return render_template('auth/login.html')
-        
-        # For development, just show success message
-        flash('Login successful! Welcome to Visioneer.', 'success')
-        return redirect(url_for('main.dashboard'))
-    
     return render_template('auth/login.html')
 
-@bp.route('/register', methods=['GET', 'POST'])
+@bp.route('/register', methods=['GET'])
 def register():
     """Register page"""
-    if request.method == 'POST':
-        # Handle form submission
-        email = request.form.get('email')
-        password = request.form.get('password')
-        
-        if not email or not password:
-            flash('Email and password are required', 'error')
-            return render_template('auth/register.html')
-        
-        # Validate email format
-        if not InputValidator.validate_email(email):
-            flash('Please enter a valid email address', 'error')
-            return render_template('auth/register.html')
-        
-        # Validate password strength
-        password_validation = InputValidator.validate_password(password)
-        if not password_validation['valid']:
-            flash('Password does not meet requirements', 'error')
-            return render_template('auth/register.html')
-        
-        # For development, just show success message
-        flash('Registration successful! Please check your email to verify your account.', 'success')
-        return redirect(url_for('auth.login'))
-    
     return render_template('auth/register.html')
 
 @bp.route('/api/login', methods=['POST'])
