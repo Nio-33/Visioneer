@@ -18,6 +18,21 @@ def index():
     """Landing page"""
     return render_template('index.html')
 
+@bp.route('/login')
+def login_redirect():
+    """Redirect /login to /auth/login"""
+    return redirect(url_for('auth.login'))
+
+@bp.route('/register')
+def register_redirect():
+    """Redirect /register to /auth/register"""
+    return redirect(url_for('auth.register'))
+
+@bp.route('/forgot-password')
+def forgot_password_redirect():
+    """Redirect /forgot-password to /auth/forgot_password"""
+    return redirect(url_for('auth.forgot_password'))
+
 @bp.route('/welcome-tour')
 def welcome_tour():
     """Welcome tour page"""
