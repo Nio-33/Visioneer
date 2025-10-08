@@ -509,21 +509,12 @@ def auto_generate_story():
         from app.services.ai_service import AIService
         ai_service = AIService()
         
-        # Create a concise prompt for story generation
-        prompt = f"""
-        Generate a compelling story concept for a visual moodboard:
+        # Create a ultra-concise prompt for story generation
+        prompt = f"""Generate a brief {genre} story concept in 2-3 sentences (max 100 words).
+The mood is {mood}, tone is {tone}, visual style is {visual_style}.
+Project title: "{project_title}"
 
-        Title: {project_title}
-        Mood: {mood} | Tone: {tone} | Genre: {genre} | Style: {visual_style}
-
-        Include:
-        - Narrative premise
-        - Key characters and motivations
-        - Main scenes and settings
-        - Visual moodboard elements
-
-        Keep it engaging and visual. 150-300 words.
-        """
+Write only the core story/scene description. No sections, no character analysis, no bullet points - just a simple narrative description."""
         
         # Generate story using AI
         response = ai_service.text_model.generate_content(prompt)
