@@ -69,9 +69,9 @@
 </a>
 </nav>
 <div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
-<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUw7DYxoufqLYm6kYRHBURlhZie6SvVhCvveQZfYlLrgxXpT7nBOyZnWxxjCa-a2m0czEFa88ydJunJrCXAWBfUOZkFAwGIPalWLJai6x5JWlx1fFUZ8dky4CJEcbewmdGpZktpRDrzHnU8z_TQMdw3OyQBQpwhfcYBs6XP_JARGvKVjJ783SCwweQzE3pFPxOrP-Fz-LEYZS_pdkbyhAI5VrqO0T5GhiKWDKqHQq7-q6jeTp9cK3l4kXSPS-aVvmsXh0aC-NcK2r"/>
+{% if user and user.picture %}<img alt="{{ user.name or user.email }}" class="w-10 h-10 rounded-full" src="{{ user.picture }}"/>{% else %}<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-semibold">{{ (user.name[0] if user and user.name else (user.email[0] if user and user.email else "U"))|upper }}</div>{% endif %}
 <div>
-<p class="font-semibold text-gray-900 dark:text-white">Olivia Chen</p>
+<p class="font-semibold text-gray-900 dark:text-white">{{ user.name if user and user.name else (user.email.split(\'@\')[0] if user and user.email else \'User\') }}</p>
 <a class="text-sm text-primary hover:underline" href="{{ url_for('auth.logout') }}">Logout</a>
         </div>
     </div>

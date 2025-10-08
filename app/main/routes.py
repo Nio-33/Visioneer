@@ -52,16 +52,23 @@ def advanced_features():
 @bp.route('/dashboard')
 def dashboard():
     """User dashboard"""
-    return render_template('dashboard/index.html')
+    from app.auth.firebase_auth import get_current_user
+    user = get_current_user()
+    return render_template('dashboard/index.html', user=user)
 
 @bp.route('/projects')
 def projects():
     """Projects page"""
-    return render_template('dashboard/projects.html')
+    from app.auth.firebase_auth import get_current_user
+    user = get_current_user()
+    return render_template('dashboard/projects.html', user=user)
 
 @bp.route('/new-project', methods=['GET', 'POST'])
 def new_project():
     """Create new project page"""
+    from app.auth.firebase_auth import get_current_user
+    user = get_current_user()
+
     if request.method == 'POST':
         try:
             # Get form data
@@ -78,7 +85,7 @@ def new_project():
             # Validate required fields
             if not all([project_title, story_concept, mood, tone, genre, visual_style]):
                 flash('All fields are required', 'error')
-                return render_template('dashboard/new_project.html')
+                return render_template('dashboard/new_project.html', user=user)
             
             # Get current user (for development, use mock user)
             user_id = session.get('user_id', 'dev-user-123')
@@ -98,7 +105,7 @@ def new_project():
             
             if concept_result['status'] != 'success':
                 flash('Failed to generate concept. Please try again.', 'error')
-                return render_template('dashboard/new_project.html')
+                return render_template('dashboard/new_project.html', user=user)
             
             # Generate image prompts
             prompts = ai_service.generate_image_prompts(
@@ -108,7 +115,7 @@ def new_project():
             
             if not prompts:
                 flash('Failed to generate image prompts. Please try again.', 'error')
-                return render_template('dashboard/new_project.html')
+                return render_template('dashboard/new_project.html', user=user)
             
             # Generate images using Gemini 2.5 Flash Image (Nano Banana)
             # Use parallel processing for faster generation
@@ -252,36 +259,46 @@ def new_project():
         except Exception as e:
             logger.error(f"Moodboard generation failed: {str(e)}")
             flash('An error occurred during generation. Please try again.', 'error')
-            return render_template('dashboard/new_project.html')
+            return render_template('dashboard/new_project.html', user=user)
     
-    return render_template('dashboard/new_project.html')
+    return render_template('dashboard/new_project.html', user=user)
 
 @bp.route('/templates')
 def templates():
     """Templates page"""
-    return render_template('dashboard/templates.html')
+    from app.auth.firebase_auth import get_current_user
+    user = get_current_user()
+    return render_template('dashboard/templates.html', user=user)
 
 @bp.route('/settings')
 def settings():
     """Settings page"""
-    return render_template('dashboard/settings.html')
+    from app.auth.firebase_auth import get_current_user
+    user = get_current_user()
+    return render_template('dashboard/settings.html', user=user)
 
 @bp.route('/settings/<section>')
 def settings_section(section):
     """Settings section page"""
+    from app.auth.firebase_auth import get_current_user
+    user = get_current_user()
     valid_sections = ['profile', 'password', 'notifications', 'billing', 'social', 'api']
     if section not in valid_sections:
         return redirect(url_for('main.settings'))
-    return render_template(f'dashboard/settings/{section}.html', section=section)
+    return render_template(f'dashboard/settings/{section}.html', section=section, user=user)
 
 @bp.route('/conversational-editor')
 def conversational_editor():
     """Conversational AI image editor page"""
-    return render_template('dashboard/conversational_editor.html')
+    from app.auth.firebase_auth import get_current_user
+    user = get_current_user()
+    return render_template('dashboard/conversational_editor.html', user=user)
 
 @bp.route('/moodboard/<moodboard_id>')
 def moodboard_results(moodboard_id):
     """Display generated moodboard results"""
+    from app.auth.firebase_auth import get_current_user
+    user = get_current_user()
     try:
         # In a real application, this would fetch from database
         # For now, we'll create a mock moodboard with the actual generated data
@@ -334,7 +351,7 @@ def moodboard_results(moodboard_id):
             ]
         }
         
-        return render_template('dashboard/moodboard_results.html', moodboard=moodboard)
+        return render_template('dashboard/moodboard_results.html', moodboard=moodboard, user=user)
         
     except Exception as e:
         logger.error(f"Failed to load moodboard {moodboard_id}: {str(e)}")
