@@ -8,6 +8,7 @@ from app.services.ai_service import AIService
 from app.services.image_generation_service import ImageGenerationService
 from app.services.firebase_service import FirebaseService
 from app.utils.validators import APIValidator
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import logging
 import time
 
@@ -110,27 +111,52 @@ def new_project():
                 return render_template('dashboard/new_project.html')
             
             # Generate images using Gemini 2.5 Flash Image (Nano Banana)
-            logger.info(f"Generating {len(prompts)} images with Gemini 2.5 Flash Image")
+            # Use parallel processing for faster generation
+            logger.info(f"Generating {len(prompts)} images in parallel with Gemini 2.5 Flash Image")
             images = []
-            
-            for i, prompt in enumerate(prompts):
+
+            # Function to generate a single image
+            def generate_single_image(index, prompt):
                 try:
-                    # Use the new Nano Banana API directly
                     result = ai_service.generate_image_with_nano_banana(
                         prompt,
                         f"Style: {visual_style}, Mood: {mood}, Genre: {genre}"
                     )
-                    
+                    return (index, prompt, result)
+                except Exception as e:
+                    logger.error(f"Error generating image {index+1}: {str(e)}")
+                    return (index, prompt, {'success': False, 'error': str(e)})
+
+            # Generate all images in parallel
+            with ThreadPoolExecutor(max_workers=4) as executor:
+                future_to_index = {
+                    executor.submit(generate_single_image, i, prompt): i
+                    for i, prompt in enumerate(prompts)
+                }
+
+                # Collect results as they complete
+                results = []
+                for future in as_completed(future_to_index):
+                    try:
+                        result = future.result()
+                        results.append(result)
+                    except Exception as e:
+                        logger.error(f"Error in parallel image generation: {str(e)}")
+
+                # Sort results by index to maintain order
+                results.sort(key=lambda x: x[0])
+
+                # Process results and convert to base64
+                import base64
+                import io
+
+                for index, prompt, result in results:
                     if result['success'] and result['images']:
-                        # Convert PIL images to base64 for storage
-                        import base64
-                        import io
-                        
                         for j, img in enumerate(result['images']):
                             buffer = io.BytesIO()
                             img.save(buffer, format='PNG')
                             img_b64 = base64.b64encode(buffer.getvalue()).decode()
-                            
+
                             images.append({
                                 'url': f"data:image/png;base64,{img_b64}",
                                 'prompt': prompt,
@@ -141,11 +167,7 @@ def new_project():
                                 'model_used': result['model_used']
                             })
                     else:
-                        logger.warning(f"Failed to generate image {i+1}: {result.get('error', 'Unknown error')}")
-                        
-                except Exception as e:
-                    logger.error(f"Error generating image {i+1}: {str(e)}")
-                    continue
+                        logger.warning(f"Failed to generate image {index+1}: {result.get('error', 'Unknown error')}")
             
             if not images:
                 # Fall back to demo images if AI generation fails
@@ -470,24 +492,20 @@ def auto_generate_story():
         from app.services.ai_service import AIService
         ai_service = AIService()
         
-        # Create a comprehensive prompt for story generation
+        # Create a concise prompt for story generation
         prompt = f"""
-        Generate a compelling story concept for a visual moodboard with the following specifications:
-        
-        Project Title: {project_title}
-        Mood: {mood}
-        Tone: {tone}
-        Genre: {genre}
-        Visual Style: {visual_style}
-        
-        Please create a detailed story concept that includes:
-        - A compelling narrative premise
-        - Key characters and their motivations
-        - Important scenes and settings
-        - Visual elements that would work well in a moodboard
-        - Atmosphere and emotional tone
-        
-        Make it engaging, creative, and suitable for visual storytelling. Keep it between 200-500 words.
+        Generate a compelling story concept for a visual moodboard:
+
+        Title: {project_title}
+        Mood: {mood} | Tone: {tone} | Genre: {genre} | Style: {visual_style}
+
+        Include:
+        - Narrative premise
+        - Key characters and motivations
+        - Main scenes and settings
+        - Visual moodboard elements
+
+        Keep it engaging and visual. 150-300 words.
         """
         
         # Generate story using AI

@@ -55,32 +55,21 @@ class AIService:
                 'error': str(e)
             }
     
-    def _create_moodboard_prompt(self, story: str, style: str, image_count: int, 
+    def _create_moodboard_prompt(self, story: str, style: str, image_count: int,
                                aspect_ratio: str) -> str:
-        """Create a detailed prompt for moodboard generation"""
+        """Create a concise prompt for moodboard generation"""
         return f"""
-        You are a professional visual consultant for filmmakers. Create a detailed moodboard concept for the following project:
+        Create a moodboard concept for this {style} project:
 
-        STORY DESCRIPTION:
-        {story}
+        STORY: {story}
 
-        VISUAL STYLE: {style}
-        NUMBER OF IMAGES: {image_count}
-        ASPECT RATIO: {aspect_ratio}
+        Provide a concise moodboard concept with:
+        1. Key visual elements and composition
+        2. Color palette (3-5 colors)
+        3. Mood, atmosphere, and lighting
+        4. Style references
 
-        Please provide a comprehensive moodboard concept that includes:
-
-        1. VISUAL ELEMENTS: Describe the key visual elements that should be included in each image
-        2. COLOR PALETTE: Suggest a cohesive color scheme with specific hex codes
-        3. MOOD & ATMOSPHERE: Describe the overall mood and emotional tone
-        4. LIGHTING: Specify lighting conditions and mood
-        5. COMPOSITION: Suggest composition styles and framing
-        6. TEXTURE & MATERIALS: Describe surface textures and material qualities
-        7. STYLE REFERENCES: Suggest visual references and inspirations
-
-        Format your response as a structured analysis that a filmmaker could use to create or commission visual assets. Be specific and detailed in your descriptions.
-
-        Focus on creating a cohesive visual narrative that supports the story's themes and emotional journey.
+        Keep it focused and actionable for {image_count} images in {aspect_ratio} format.
         """
     
     def refine_moodboard_concept(self, original_concept: str, feedback: str) -> Dict:
@@ -191,20 +180,8 @@ class AIService:
             Dict containing generated image data and metadata
         """
         try:
-            enhanced_prompt = f"""
-            Create a photorealistic image with the following specifications:
-            
-            {prompt}
-            
-            Style Guidance: {style_guidance}
-            
-            Please ensure the image is:
-            - High quality and photorealistic
-            - Well-composed with good lighting
-            - Professional and visually appealing
-            - Suitable for a creative moodboard
-            """
-            
+            enhanced_prompt = f"Create a high-quality {style_guidance} image: {prompt}. Photorealistic, professional moodboard aesthetic."
+
             response = self.image_model.generate_content(enhanced_prompt)
             
             # Process the response to extract images
