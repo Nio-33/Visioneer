@@ -138,6 +138,27 @@ class AuthManager:
         if not session.get('authenticated'):
             return None
 
+        # Try to get fresh user data from Firebase if available
+        uid = session.get('user_id')
+        if uid and self.firebase_auth:
+            try:
+                firebase_user = self.firebase_auth.get_user_by_uid(uid)
+                if firebase_user:
+                    # Update session with latest Firebase data
+                    session['user_name'] = firebase_user.get('display_name') or session.get('user_name')
+                    session['user_email'] = firebase_user.get('email') or session.get('user_email')
+                    session['user_picture'] = firebase_user.get('photo_url') or session.get('user_picture')
+
+                    return {
+                        'uid': firebase_user.get('uid'),
+                        'email': firebase_user.get('email'),
+                        'name': firebase_user.get('display_name'),
+                        'picture': firebase_user.get('photo_url')
+                    }
+            except Exception as e:
+                logger.warning(f"Could not fetch Firebase user data, using session: {str(e)}")
+
+        # Fallback to session data
         return {
             'uid': session.get('user_id'),
             'email': session.get('user_email'),
