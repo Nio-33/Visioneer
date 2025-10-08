@@ -21,7 +21,7 @@ class AIService:
         
         genai.configure(api_key=api_key)
         # Use Gemini 2.5 Flash Image (Nano Banana) for advanced image generation
-        self.text_model = genai.GenerativeModel('gemini-1.5-flash')
+        self.text_model = genai.GenerativeModel('gemini-1.5-flash-latest')
         self.image_model = genai.GenerativeModel('gemini-2.5-flash-image-preview')
         self.logger = logging.getLogger(__name__)
     

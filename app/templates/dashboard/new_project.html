@@ -242,14 +242,25 @@ Auto Generate
                                 </select>
                             </div>
                         </div>
-<div class="space-y-4 pt-4">
+<div id="progress-container" class="space-y-4 pt-4 hidden">
 <div class="flex items-center gap-4">
 <div class="h-2.5 w-full rounded-full bg-black/10 dark:bg-white/10">
-<div class="h-2.5 rounded-full bg-primary" style="width: 65%"></div>
+<div id="progress-bar" class="h-2.5 rounded-full bg-primary transition-all duration-500" style="width: 0%"></div>
 </div>
-<span class="text-sm font-medium">65%</span>
+<span id="progress-percent" class="text-sm font-medium">0%</span>
 </div>
-<p class="text-center text-sm text-black/60 dark:text-white/60">Generating your moodboard... This may take a moment.</p>
+<p id="progress-message" class="text-center text-sm text-black/60 dark:text-white/60">Generating your moodboard... This may take a moment.</p>
+                    </div>
+
+                    <!-- Error Alert -->
+                    <div id="error-alert" class="hidden rounded-lg bg-red-500/10 border border-red-500/20 p-4">
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-red-500">error</span>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-red-500">Generation Failed</h4>
+                                <p id="error-message" class="text-sm text-red-500/80 mt-1"></p>
+                            </div>
+                        </div>
                     </div>
 <div class="pt-4">
 <button id="generateBtn" class="w-full rounded-lg bg-primary py-3 text-base font-bold text-white transition-opacity hover:opacity-90" type="submit">
@@ -343,15 +354,115 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update character count on input
     storyDescription.addEventListener('input', updateCharacterCount);
     
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Hide any previous errors
+        document.getElementById('error-alert').classList.add('hidden');
+
+        // Validate required fields
+        const projectTitle = document.getElementById('project-title').value;
+        const storyDescription = document.getElementById('story-description').value;
+        const mood = document.getElementById('mood').value;
+        const tone = document.getElementById('tone').value;
+        const genre = document.getElementById('genre').value;
+        const visualStyle = document.getElementById('visual-style').value;
+
+        if (!projectTitle || !storyDescription || !mood || mood === 'Select mood' ||
+            !tone || tone === 'Select tone' || !genre || genre === 'Select genre' ||
+            !visualStyle || visualStyle === 'Select visual style') {
+            showError('Please fill in all fields');
+            return;
+        }
+
         // Show loading state
         generateBtn.disabled = true;
         btnText.classList.add('hidden');
         btnLoading.classList.remove('hidden');
-        
-        // The form will submit normally and redirect to results page
-        // No need to prevent default since we want the server to process it
+
+        // Show progress bar
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+        const progressMessage = document.getElementById('progress-message');
+        progressContainer.classList.remove('hidden');
+
+        // Simulate progress updates
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+            if (progress < 90) {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                progressBar.style.width = progress + '%';
+                progressPercent.textContent = Math.round(progress) + '%';
+
+                // Update message based on progress
+                if (progress < 30) {
+                    progressMessage.textContent = 'Analyzing your story and preferences...';
+                } else if (progress < 60) {
+                    progressMessage.textContent = 'Generating moodboard concept...';
+                } else {
+                    progressMessage.textContent = 'Creating visual elements...';
+                }
+            }
+        }, 500);
+
+        try {
+            // Submit form data via AJAX
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            clearInterval(progressInterval);
+
+            if (response.redirected) {
+                // If server redirected, follow the redirect
+                progressBar.style.width = '100%';
+                progressPercent.textContent = '100%';
+                progressMessage.textContent = 'Complete! Redirecting...';
+                window.location.href = response.url;
+            } else {
+                const text = await response.text();
+
+                // Check if response contains error
+                if (response.ok) {
+                    progressBar.style.width = '100%';
+                    progressPercent.textContent = '100%';
+                    progressMessage.textContent = 'Complete! Redirecting...';
+
+                    // Extract redirect URL from response if present
+                    // For now, redirect to projects page
+                    setTimeout(() => {
+                        window.location.href = '/projects';
+                    }, 500);
+                } else {
+                    throw new Error('Failed to generate moodboard');
+                }
+            }
+        } catch (error) {
+            clearInterval(progressInterval);
+            console.error('Error:', error);
+            showError(error.message || 'An error occurred during generation. Please try again.');
+
+            // Reset button state
+            generateBtn.disabled = false;
+            btnText.classList.remove('hidden');
+            btnLoading.classList.add('hidden');
+            progressContainer.classList.add('hidden');
+        }
     });
+
+    function showError(message) {
+        const errorAlert = document.getElementById('error-alert');
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = message;
+        errorAlert.classList.remove('hidden');
+
+        // Scroll to error
+        errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 });
 </script>
 
