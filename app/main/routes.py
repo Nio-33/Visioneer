@@ -277,7 +277,7 @@ def settings():
     user = get_current_user()
     return render_template('dashboard/settings.html', user=user)
 
-@bp.route('/settings/<section>')
+@bp.route('/settings/<section>', methods=['GET', 'POST'])
 def settings_section(section):
     """Settings section page"""
     from app.auth.firebase_auth import get_current_user
@@ -285,6 +285,45 @@ def settings_section(section):
     valid_sections = ['profile', 'password', 'notifications', 'billing', 'social', 'api']
     if section not in valid_sections:
         return redirect(url_for('main.settings'))
+
+    # Handle profile update form submission
+    if request.method == 'POST' and section == 'profile':
+        try:
+            from app.auth.firebase_auth import auth_manager
+
+            first_name = request.form.get('firstName', '').strip()
+            last_name = request.form.get('lastName', '').strip()
+            email = request.form.get('email', '').strip()
+            bio = request.form.get('bio', '').strip()
+
+            # Combine first and last name
+            full_name = f"{first_name} {last_name}".strip()
+
+            # Update Firebase user profile
+            if user and user.get('uid'):
+                success = auth_manager.update_user_profile(
+                    uid=user['uid'],
+                    display_name=full_name if full_name else None,
+                    email=email if email else None
+                )
+
+                if success:
+                    flash('Profile updated successfully!', 'success')
+                else:
+                    flash('Profile updated in session, but Firebase sync failed.', 'warning')
+            else:
+                # Fallback: Update session data only
+                if full_name:
+                    session['user_name'] = full_name
+                if email:
+                    session['user_email'] = email
+                flash('Profile updated successfully!', 'success')
+
+            return redirect(url_for('main.settings_section', section='profile'))
+        except Exception as e:
+            logger.error(f"Error updating profile: {str(e)}")
+            flash('Failed to update profile. Please try again.', 'error')
+
     return render_template(f'dashboard/settings/{section}.html', section=section, user=user)
 
 @bp.route('/conversational-editor')

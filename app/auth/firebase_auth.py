@@ -137,13 +137,37 @@ class AuthManager:
         """Get current authenticated user"""
         if not session.get('authenticated'):
             return None
-        
+
         return {
             'uid': session.get('user_id'),
             'email': session.get('user_email'),
             'name': session.get('user_name'),
             'picture': session.get('user_picture')
         }
+
+    def update_user_profile(self, uid: str, display_name: str = None, email: str = None) -> bool:
+        """Update user profile in Firebase"""
+        if not self.firebase_auth:
+            logger.error("Firebase authentication is not available")
+            return False
+
+        try:
+            update_data = {}
+            if display_name is not None:
+                update_data['display_name'] = display_name
+                session['user_name'] = display_name
+            if email is not None:
+                update_data['email'] = email
+                session['user_email'] = email
+
+            if update_data:
+                auth.update_user(uid, **update_data)
+                logger.info(f"Updated user profile for {uid}")
+                return True
+            return False
+        except FirebaseError as e:
+            logger.error(f"Failed to update user profile: {str(e)}")
+            return False
     
     def is_authenticated(self) -> bool:
         """Check if user is authenticated"""
