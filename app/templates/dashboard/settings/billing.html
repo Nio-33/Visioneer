@@ -71,7 +71,7 @@
 <div class="p-4 flex items-center gap-4 border-t border-gray-200/10 dark:border-white/10">
 {% if user and user.picture %}<img alt="{{ user.name or user.email }}" class="w-10 h-10 rounded-full" src="{{ user.picture }}"/>{% else %}<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-semibold">{{ (user.name[0] if user and user.name else (user.email[0] if user and user.email else "U"))|upper }}</div>{% endif %}
 <div>
-<p class="font-semibold text-gray-900 dark:text-white">{{ user.name if user and user.name else (user.email.split(\'@\')[0] if user and user.email else \'User\') }}</p>
+<p class="font-semibold text-gray-900 dark:text-white">{{ user.name if user and user.name else (user.email.split('@')[0] if user and user.email else 'User') }}</p>
 <a class="text-sm text-primary hover:underline" href="{{ url_for('auth.logout') }}">Logout</a>
         </div>
     </div>
